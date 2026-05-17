@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>FINAL ESCAPE</title>
 
@@ -14,6 +14,11 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
+}
+
+html{
+    width:100%;
+    height:100%;
 }
 
 body{
@@ -28,8 +33,8 @@ body{
 /* GAME */
 
 #game{
-    width:100vw;
-    height:100vh;
+    width:100%;
+    height:100%;
     background-size:cover;
     background-position:center;
     transition:1s;
@@ -337,25 +342,12 @@ button:hover{
 
 /* ACTIVITY BUTTONS */
 
-.activityBtn{
-
-    padding:10px 12px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#333;
-
-    color:white;
-
-    cursor:pointer;
-
-    transition:0.3s;
-
-    font-size:clamp(12px,2vw,15px);
-
-    min-width:80px;
+.activityButtons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    width:100%;
 }
 
 /* ACTIVITY BUTTON */
@@ -376,9 +368,11 @@ button:hover{
 
     transition:0.3s;
 
-    font-size:14px;
+    font-size:clamp(12px,2vw,15px);
 
-    min-width:90px;
+    min-width:80px;
+
+    flex:1;
 }
 
 .activityBtn:hover{
@@ -1070,7 +1064,7 @@ ROOM 1 • LEVEL 1
 <!-- TIMER -->
 
 <div id="timer">
-⏳ 60
+⏳ 30
 </div>
 
 <!-- HEALTH -->
@@ -1830,7 +1824,7 @@ function loadPuzzle(){
 clearInterval(timerInterval);
 
 timer =
-60 + selectedCharacter.time;
+30 + selectedCharacter.time;
 
 startTimer();
 
