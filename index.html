@@ -1,0 +1,2476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FINAL ESCAPE</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    font-family:'Orbitron',sans-serif;
+    background:black;
+}
+
+/* GAME */
+
+#game{
+    width:100vw;
+    height:100vh;
+    background-size:cover;
+    background-position:center;
+    transition:1s;
+    position:relative;
+    overflow:hidden;
+}
+
+#overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:transparent;
+}
+
+/* START SCREEN */
+
+.screen{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:100;
+    background:black;
+}
+
+.box{
+    width:900px;
+    max-width:95%;
+    background:rgba(0, 0, 0, 0.9);
+    border:2px solid cyan;
+    border-radius:30px;
+    padding:40px;
+    text-align:center;
+    color:white;
+    box-shadow:0 0 35px cyan;
+}
+
+h1{
+    font-size:60px;
+    color:cyan;
+    margin-bottom:20px;
+    text-shadow:
+    0 0 15px cyan,
+    0 0 30px cyan;
+}
+
+.story{
+    font-size:19px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    margin-top:20px;
+    margin-bottom:30px;
+    font-size:18px;
+    text-align:center;
+}
+
+/* CHARACTERS */
+
+#characters{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.character{
+    width:170px;
+    height:220px;
+    background:rgba(255,255,255,0.08);
+    border-radius:20px;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:0.3s;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.character:hover{
+    transform:scale(1.05);
+    border:2px solid cyan;
+}
+
+.character img{
+    width:100px;
+    margin-bottom:10px;
+}
+
+.selected{
+    border:2px solid cyan;
+    box-shadow:0 0 20px cyan;
+}
+
+/* BUTTON */
+
+button{
+    padding:14px 30px;
+    border:none;
+    border-radius:12px;
+    background:cyan;
+    color:black;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+/* ROOM */
+
+#roomInfo{
+    position:absolute;
+    top:20px;
+    left:20px;
+    color:white;
+    font-size:26px;
+    z-index:50;
+    text-shadow:0 0 10px cyan;
+}
+
+/* TIMER */
+
+#timer{
+    position:absolute;
+    top:20px;
+    right:20px;
+    color:white;
+    font-size:22px;
+    z-index:50;
+}
+
+/* HEALTH */
+
+#healthArea{
+    position:absolute;
+    top:20px;
+    right:120px;
+    z-index:60;
+}
+
+#healthContainer{
+    width:180px;
+    height:18px;
+    background:#222;
+    border-radius:20px;
+    overflow:hidden;
+    border:2px solid white;
+}
+
+#healthBar{
+    width:100%;
+    height:100%;
+    background:red;
+    transition:0.4s;
+}
+
+#healthText{
+    color:white;
+    font-size:13px;
+    text-align:center;
+    margin-top:4px;
+}
+
+/* QUESTION AREA */
+
+#questionArea{
+
+    position:absolute;
+
+    left:50%;
+    bottom:12px;
+
+    transform:translateX(-50%);
+
+    width:92%;
+    max-width:1200px;
+
+    background:rgba(0,0,0,0.50);
+
+    border-radius:20px;
+
+    padding:14px 18px;
+
+    color:white;
+
+    z-index:40;
+
+    backdrop-filter:blur(1.5px);
+
+    display:flex;
+
+    flex-direction:row;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+/* QUESTION SECTION */
+
+#questionSection{
+
+    flex:1.4;
+}
+
+/* QUESTION */
+
+#question{
+
+    font-size:20px;
+
+    line-height:1.4;
+
+    margin-bottom:10px;
+
+    text-align:left;
+}
+
+/* OPTIONS */
+
+#options{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+}
+
+/* OPTION */
+
+.option{
+
+    width:100%;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,0.08);
+
+    color:white;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.option:hover{
+
+    background:rgba(0,255,255,0.2);
+
+    transform:scale(1.02);
+}
+
+/* ACTIVITY */
+
+#activity{
+
+    flex:1;
+
+    background:rgba(255,255,255,0.04);
+
+    padding:14px;
+
+    border-radius:16px;
+
+    min-height:160px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+}
+
+/* ACTIVITY BUTTONS */
+
+.activityButtons{
+
+    display:flex;
+
+    flex-direction:row;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:10px;
+}
+
+/* ACTIVITY BUTTON */
+
+.activityBtn{
+
+    padding:10px 14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#333;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    font-size:14px;
+
+    min-width:90px;
+}
+
+.activityBtn:hover{
+
+    background:cyan;
+
+    color:black;
+}
+
+/* MESSAGE */
+
+#message{
+
+    margin-top:10px;
+
+    font-size:16px;
+
+    min-height:20px;
+
+    color:#00ff99;
+
+    text-align:left;
+}
+
+/* HINT BUTTON */
+
+#hintBtn{
+
+    margin-top:10px;
+
+    padding:8px 14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:orange;
+
+    color:black;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    display:none;
+}
+
+/* CLUE POPUP */
+
+#cluePopup{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:black;
+    border:2px solid cyan;
+    border-radius:20px;
+    padding:30px;
+    color:white;
+    z-index:300;
+    display:none;
+    text-align:center;
+    box-shadow:0 0 25px cyan;
+    width:400px;
+    max-width:90%;
+}
+
+/* DOOR */
+
+#doorScreen{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:500;
+    color:white;
+}
+/* VIDEO SCENE */
+
+#videoScene{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:black;
+
+    z-index:540;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+}
+
+/* VIDEO */
+
+#endingVideo{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+/* ENDING SCENE */
+
+#endingScene{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background-image:
+    url("images/finalescape.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    z-index:550;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+}
+
+/* DARK OVERLAY */
+
+#endingOverlay{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:
+    linear-gradient(
+    rgba(0,0,0,0.45),
+    rgba(0,0,0,0.88)
+    );
+}
+
+/* CONTENT */
+
+#endingContent{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    color:white;
+
+    animation:fadeUp 2s ease;
+
+    padding:20px;
+}
+
+#endingContent h1{
+
+    font-size:70px;
+
+    color:cyan;
+
+    margin-bottom:25px;
+
+    text-shadow:
+    0 0 20px cyan;
+}
+
+#endingContent p{
+
+    font-size:26px;
+
+    line-height:1.8;
+
+    max-width:900px;
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* IMAGE */
+
+#endingImage{
+
+    width:500px;
+    max-width:90%;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 0 40px cyan;
+
+    animation:endingZoom 3s ease;
+}
+
+/* TEXT */
+
+#endingContent{
+
+    margin-top:30px;
+
+    animation:fadeUp 2s ease;
+}
+
+#endingContent h1{
+
+    font-size:60px;
+
+    color:cyan;
+
+    margin-bottom:20px;
+}
+
+#endingContent p{
+
+    font-size:24px;
+
+    line-height:1.8;
+}
+#endingVideo{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    background:black;
+}
+/* ANIMATIONS */
+
+@keyframes endingZoom{
+
+    from{
+
+        transform:scale(0.6);
+        opacity:0;
+    }
+
+    to{
+
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+#door{
+    width:220px;
+    height:320px;
+    background:#222;
+    border:8px solid #555;
+    border-radius:20px;
+    animation:openDoor 2s forwards;
+}
+
+@keyframes openDoor{
+    0%{
+        transform:scaleX(1);
+    }
+
+    100%{
+        transform:scaleX(0);
+    }
+}
+
+#key{
+    font-size:80px;
+    margin-bottom:20px;
+    animation:spin 2s linear infinite;
+}
+
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* FINAL */
+
+
+
+#finalScreen{
+    display:none;
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:black;
+    z-index:600;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    padding:30px;
+}
+
+#finalScreen h1{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+#finalScreen p{
+    font-size:24px;
+    line-height:1.8;
+    max-width:900px;
+    margin:auto;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    #questionArea{
+        flex-direction:column;
+        width:95%;
+        padding:12px;
+    }
+
+    #options{
+        grid-template-columns:1fr;
+    }
+
+    #question{
+        font-size:17px;
+    }
+
+    #activity{
+        width:100%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+<div id="overlay"></div>
+
+<!-- START SCREEN -->
+
+<div class="screen" id="startScreen">
+
+<div class="box">
+
+<h1>FINAL ESCAPE</h1>
+
+<p class="story">
+You are trapped inside a forgotten underground facility.
+Choose your character and begin the escape mission.
+</p>
+
+<input
+type="text"
+id="nameInput"
+placeholder="ENTER YOUR NAME"
+>
+
+<div id="characters">
+
+<div class="character" onclick="selectCharacter(0)">
+<img src="https://cdn-icons-png.flaticon.com/128/3952/3952988.png">
+<h2>Doctor</h2>
+<p>+20 Health</p>
+</div>
+
+<div class="character" onclick="selectCharacter(1)">
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
+<h2>Hacker</h2>
+<p>+5 sec for Each Question</p>
+</div>
+
+<div class="character" onclick="selectCharacter(2)">
+<img src="https://cdn-icons-png.flaticon.com/512/2784/2784445.png">
+<h2>Scientist</h2>
+<p>Gets Clues</p>
+</div>
+
+</div>
+
+<br><br>
+
+<button onclick="showInfo()">
+CONTINUE
+</button>
+
+</div>
+
+</div>
+
+<!-- INFO SCREEN -->
+
+<div class="screen" id="infoScreen" style="display:none;">
+
+<div class="box">
+
+<h1>MISSION BRIEFING</h1>
+
+<p class="story">
+
+Emergency alarms echo through the underground facility.
+
+<br><br>
+
+<span style="color:cyan">
+“Only intelligent minds may escape alive.”
+</span>
+
+</p>
+
+<div style="
+text-align:left;
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:20px;
+line-height:2;
+">
+
+<h2 style="color:cyan;">
+HOW TO PLAY
+</h2>
+
+<ul>
+
+<li>Every room contains 3 puzzles.</li>
+<li>Every puzzle has a related activity.</li>
+<li>Wrong answers decrease health by 20.</li>
+<li>If timer reaches zero, room restarts.</li>
+<li>Scientist can use hint popup.</li>
+<li>Complete all levels to escape.</li>
+
+</ul>
+
+</div>
+
+<br><br>
+
+<button onclick="startGame()">
+START GAME
+</button>
+
+</div>
+
+</div>
+
+<!-- ROOM INFO -->
+
+<div id="roomInfo">
+ROOM 1 • LEVEL 1
+</div>
+
+<!-- TIMER -->
+
+<div id="timer">
+⏳ 30
+</div>
+
+<!-- HEALTH -->
+
+<div id="healthArea">
+
+<div id="healthContainer">
+<div id="healthBar"></div>
+</div>
+
+<div id="healthText">
+100/100
+</div>
+
+</div>
+
+<!-- QUESTION AREA -->
+
+<div id="questionArea">
+
+<div id="questionSection">
+
+<div id="question"></div>
+
+<div id="options"></div>
+
+<button
+id="hintBtn"
+onclick="showScientistHint()">
+
+SHOW HINT
+
+</button>
+
+<div id="message"></div>
+
+</div>
+
+<div id="activity"></div>
+
+</div>
+
+<!-- CLUE -->
+
+<div id="cluePopup">
+
+<h2 style="color:cyan;margin-bottom:15px;">
+SCIENTIST CLUE
+</h2>
+
+<p id="clueText"></p>
+
+<br>
+
+<button onclick="closeClue()">
+CONTINUE
+</button>
+
+</div>
+
+<!-- DOOR -->
+
+<div id="doorScreen">
+
+<div id="key">
+🗝️
+</div>
+
+<div id="door"></div>
+
+<h2 style="margin-top:30px;">
+NEXT ROOM UNLOCKED
+</h2>
+
+</div>
+
+<!-- FINAL -->
+<!-- ENDING SCENE -->
+
+<!-- VIDEO SCENE -->
+
+<!-- VIDEO SCENE -->
+
+<div id="videoScene">
+
+    <video
+    id="endingVideo"
+    playsinline
+    preload="auto">
+
+        <source
+        src="images/videos/dooropen.mp4"
+        type="video/mp4">
+
+    </video>
+
+</div>
+
+<div id="endingScene">
+
+    <div id="endingOverlay"></div>
+
+    <div id="endingContent">
+
+        <h1>ESCAPE SUCCESSFUL</h1>
+
+        <p>
+
+            The underground facility begins to collapse...
+
+            <br><br>
+
+          Robotic Voice Said,
+         
+
+            <br><br>
+
+            <span style="color:cyan;">
+
+            “Congratulations. Intelligence proved stronger than fear.”
+
+            </span>
+
+            <br><br>
+
+            But the mystery has only begun...
+
+        </p>
+
+    </div>
+
+</div>
+<div id="finalScreen">
+
+<div>
+
+<h1>MISSION COMPLETE</h1>
+
+<p>
+
+You escaped the forgotten underground facility.
+
+<br><br>
+
+<span style="color:cyan">
+“This is only the beginning...
+The game continues.”
+</span>
+
+<br><br>
+
+More rooms.
+More mysteries.
+More experiments await.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* PLAYER */
+
+/* =========================================================
+   FINAL ESCAPE - FULL JAVASCRIPT CODE
+========================================================= */
+
+/* =========================================================
+   PLAYER DATA
+========================================================= */
+
+let playerName = "";
+let selectedCharacter = null;
+
+let health = 100;
+let maxHealth = 100;
+
+let timer = 30;
+let timerInterval;
+
+/* =========================================================
+   CHARACTERS
+========================================================= */
+
+const characters = [
+
+{
+name:"Doctor",
+health:120,
+time:0,
+clue:false
+},
+
+{
+name:"Hacker",
+health:100,
+time:5,
+clue:false
+},
+
+{
+name:"Scientist",
+health:100,
+time:0,
+clue:true
+}
+
+];
+
+/* =========================================================
+   SELECT CHARACTER
+========================================================= */
+
+function selectCharacter(index){
+
+selectedCharacter = characters[index];
+
+document
+.querySelectorAll(".character")
+.forEach(card=>{
+
+card.classList.remove("selected");
+
+});
+
+document
+.querySelectorAll(".character")
+[index]
+.classList.add("selected");
+}
+
+/* =========================================================
+   SHOW INFO SCREEN
+========================================================= */
+
+function showInfo(){
+
+playerName =
+document
+.getElementById("nameInput")
+.value;
+
+if(playerName === ""){
+
+alert("ENTER YOUR NAME");
+
+return;
+}
+
+if(selectedCharacter === null){
+
+alert("SELECT A CHARACTER");
+
+return;
+}
+
+document
+.getElementById("startScreen")
+.style.display = "none";
+
+document
+.getElementById("infoScreen")
+.style.display = "flex";
+}
+
+/* =========================================================
+   ROOMS DATA
+========================================================= */
+
+const rooms = [
+
+/* ================= ROOM 1 ================= */
+
+{
+
+title:"ROOM 1 — THE AWAKENING CHAMBER",
+
+backgrounds:[
+
+"images/phase1.jpeg",
+"images/phase2.jpeg",
+"images/phase3.jpeg"
+
+],
+
+puzzles:[
+
+{
+
+question:`I speak without a mouth and hear without ears.
+I have no body, but I come alive with wind.`,
+
+options:[
+"Echo",
+"Smoke",
+"Shadow",
+"Water"
+],
+
+answer:"Echo",
+
+hint:"It repeats your voice.",
+
+activity:"sound"
+
+},
+
+{
+
+question:`2 → 6 ||
+3 → 12  ||
+4 → 20  || 
+5 → ?`,
+
+options:[
+"25",
+"30",
+"35",
+"40"
+],
+
+answer:"30",
+
+hint:"Multiply number with next number.",
+
+activity:"number"
+
+},
+
+{
+
+question:`Three wires appear:
+🔴 Red 
+🔵 Blue 
+🟢 Green 
+
+Choose correct wire.`,
+
+options:[
+"Red",
+"Blue",
+"Green",
+"Black"
+],
+
+answer:"Blue",
+
+hint:"Spreads all over the world.",
+
+activity:"wire"
+
+}
+
+]
+
+},
+
+/* ================= ROOM 2 ================= */
+
+{
+
+title:"ROOM 2 — THE LIBRARY OF SHADOWS",
+
+backgrounds:[
+
+"images/phase4.jpeg",
+"images/phase5.jpeg",
+"images/phase6.jpeg"
+
+],
+
+puzzles:[
+
+{
+
+question:`B, D, G, K, ?`,
+
+options:[
+"M",
+"N",
+"P",
+"Q"
+],
+
+answer:"P",
+
+hint:"Letters skip in increasing pattern.",
+
+activity:"letters"
+
+},
+
+{
+
+question:`Two statues stand guard.
+One always lies.
+One always tells truth.
+
+You may ask ONE question to know the correct door.`,
+
+options:[
+
+"Ask both statues",
+
+"Choose random door",
+
+"Ask which door the other statue says is correct",
+
+"Break the door"
+
+],
+
+answer:"Ask which door the other statue says is correct",
+
+hint:"Use one liar against the other.",
+
+activity:"door"
+
+},
+
+{
+
+question:`Unscramble:
+RCAEES`,
+
+options:[
+"ESCAPE",
+"SEARCH",
+"SCREEN",
+"SCARE"
+],
+
+answer:"ESCAPE",
+
+hint:"You are trying to do this in the game.",
+
+activity:"word"
+
+}
+
+]
+
+},
+
+/* ================= ROOM 3 ================= */
+
+{
+
+title:"ROOM 3 — THE FROZEN LABORATORY",
+
+backgrounds:[
+
+"images/phase7.jpeg",
+"images/phase8.jpeg",
+"images/phase9.jpeg"
+
+],
+
+puzzles:[
+
+{
+
+question:`If yesterday tomorrow was today,
+what day is tomorrow?`,
+
+options:[
+"Yesterday",
+"Today",
+"Monday",
+"Sunday"
+],
+
+answer:"Today",
+
+hint:"Think carefully about time shifting.",
+
+activity:"calendar"
+
+},
+
+{
+
+question:`Three bottles:
+A = poison
+B = sleeping gas
+C = water
+
+Which bottle is safe?`,
+
+options:[
+"Bottle A",
+"Bottle B",
+"Bottle C",
+"None"
+],
+
+answer:"Bottle C",
+
+hint:"Danger stands between poison and rest.",
+
+activity:"bottle"
+
+},
+
+{
+
+question:`❄️ 1
+❄️❄️ 4
+❄️❄️❄️ 9
+❄️❄️❄️❄️ ?`,
+
+options:[
+"12",
+"14",
+"15",
+"16"
+],
+
+answer:"16",
+
+hint:"Perfect squares.",
+
+activity:"ice"
+
+}
+
+]
+
+},
+
+/* ================= ROOM 4 ================= */
+
+{
+
+title:"ROOM 4 — THE HALL OF ILLUSIONS",
+
+backgrounds:[
+
+"images/phase10.jpeg",
+"images/phase11.jpeg",
+"images/phase12.jpeg"
+
+],
+
+puzzles:[
+
+{
+
+question:`The more you take,
+the more you leave behind.`,
+
+options:[
+"Money",
+"Footsteps",
+"Air",
+"Shadow"
+],
+
+answer:"Footsteps",
+
+hint:"You leave it while walking.",
+
+activity:"steps"
+
+},
+
+{
+
+question:`3SIH7`,
+
+options:[
+"SHIFT",
+"THIS",
+"THIEF",
+"SIGHT"
+],
+
+answer:"THIS",
+
+hint:"Look at it like a mirror.",
+
+activity:"mirror"
+
+},
+
+{
+
+question:`Three switches control one bulb in another room.
+You can enter the bulb room only once.`,
+
+options:[
+
+"Turn all on",
+
+"Use heat to identify bulb",
+
+"Break switch",
+
+"Random guess"
+
+],
+
+answer:"Use heat to identify bulb",
+
+hint:"One bulb becomes warm.",
+
+activity:"switch"
+
+}
+
+]
+
+},
+
+/* ================= ROOM 5 ================= */
+
+{
+
+title:"ROOM 5 — THE FINAL EXIT CHAMBER",
+
+backgrounds:[
+
+"images/phase13.jpeg",
+"images/phase14.jpeg",
+"images/phase15.jpeg"
+
+],
+
+puzzles:[
+
+{
+
+question:`I am always running but never walk.`,
+
+options:[
+"Human",
+"Robot",
+"Water",
+"Clock"
+],
+
+answer:"Water",
+
+hint:"Flows endlessly.",
+
+activity:"water"
+
+},
+
+{
+
+question:`What date appears once in 4 years?`,
+
+options:[
+"Feb 28",
+"Feb 29",
+"April 31",
+"Jan 1"
+],
+
+answer:"Feb 29",
+
+hint:"Leap year special date.",
+
+activity:"calendar2"
+
+},
+
+{
+
+question:`To escape,
+sacrifice one thing you can never physically hold.`,
+
+options:[
+"Money",
+"Time",
+"Air",
+"Light"
+],
+
+answer:"Time",
+
+hint:"You lose it every second.",
+
+activity:"clock"
+
+}
+
+]
+
+}
+
+];
+
+/* =========================================================
+   GAME ELEMENTS
+========================================================= */
+
+const roomInfo =
+document.getElementById("roomInfo");
+
+const question =
+document.getElementById("question");
+
+const optionsDiv =
+document.getElementById("options");
+
+const activity =
+document.getElementById("activity");
+
+const message =
+document.getElementById("message");
+
+const game =
+document.getElementById("game");
+
+/* =========================================================
+   GAME STATE
+========================================================= */
+
+let currentRoom = 0;
+let currentPuzzle = 0;
+let questionSolved = false;
+let activitySolved = false;
+
+/* =========================================================
+   START GAME
+========================================================= */
+
+function startGame(){
+
+document
+.getElementById("infoScreen")
+.style.display = "none";
+
+health =
+selectedCharacter.health;
+
+maxHealth =
+selectedCharacter.health;
+
+updateHealth();
+
+loadPuzzle();
+}
+
+/* =========================================================
+   LOAD PUZZLE
+========================================================= */
+
+function loadPuzzle(){
+
+clearInterval(timerInterval);
+
+timer =
+30 + selectedCharacter.time;
+
+startTimer();
+
+const room =
+rooms[currentRoom];
+
+const puzzle =
+room.puzzles[currentPuzzle];
+
+game.style.backgroundImage =
+`url('${room.backgrounds[currentPuzzle]}')`;
+
+roomInfo.innerText =
+`${room.title} • LEVEL ${currentPuzzle+1}`;
+
+question.innerHTML =
+
+`
+${playerName},<br><br>
+${puzzle.question}
+`;
+
+optionsDiv.innerHTML = "";
+activity.innerHTML = "";
+message.innerText = "";
+
+/* HINT BUTTON */
+
+if(selectedCharacter.clue){
+
+document
+.getElementById("hintBtn")
+.style.display = "inline-block";
+
+}
+else{
+
+document
+.getElementById("hintBtn")
+.style.display = "none";
+}
+
+/* OPTIONS */
+
+puzzle.options.forEach(option=>{
+
+const btn =
+document.createElement("button");
+
+btn.classList.add("option");
+
+btn.innerText = option;
+
+btn.onclick =
+()=>checkAnswer(option);
+
+optionsDiv.appendChild(btn);
+
+});
+
+/* LOAD ACTIVITY */
+
+loadActivities(puzzle);
+}
+
+/* =========================================================
+   SCIENTIST HINT
+========================================================= */
+
+function showScientistHint(){
+
+const puzzle =
+rooms[currentRoom]
+.puzzles[currentPuzzle];
+
+document
+.getElementById("cluePopup")
+.style.display = "block";
+
+document
+.getElementById("clueText")
+.innerText =
+puzzle.hint;
+}
+
+function closeClue(){
+
+document
+.getElementById("cluePopup")
+.style.display = "none";
+}
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer(){
+
+document
+.getElementById("timer")
+.innerText =
+`⏳ ${timer}`;
+
+timerInterval = setInterval(()=>{
+
+timer--;
+
+document
+.getElementById("timer")
+.innerText =
+`⏳ ${timer}`;
+
+if(timer <= 0){
+
+clearInterval(timerInterval);
+
+restartRoom();
+}
+
+},1000);
+}
+
+/* =========================================================
+   RESTART ROOM
+========================================================= */
+
+function restartRoom(){
+
+alert("TIME OVER! ROOM RESTARTED");
+
+currentPuzzle = 0;
+
+loadPuzzle();
+}
+
+/* =========================================================
+   UPDATE HEALTH
+========================================================= */
+
+function updateHealth(){
+
+let percent =
+(health/maxHealth)*100;
+
+document
+.getElementById("healthBar")
+.style.width =
+percent + "%";
+
+document
+.getElementById("healthText")
+.innerText =
+`${health}/${maxHealth}`;
+
+if(health <= 0){
+
+alert("YOU DIED");
+
+location.reload();
+}
+}
+
+/* =========================================================
+   CHECK ANSWER
+========================================================= */
+
+function checkAnswer(selected){
+
+const correct =
+rooms[currentRoom]
+.puzzles[currentPuzzle]
+.answer;
+
+if(selected === correct){
+
+message.innerText =
+"ACCESS GRANTED";
+
+setTimeout(()=>{
+
+currentPuzzle++;
+
+if(currentPuzzle <
+rooms[currentRoom]
+.puzzles.length){
+
+loadPuzzle();
+
+}
+else{
+
+nextRoom();
+}
+
+},1200);
+}
+
+else{
+
+health -= 20;
+
+updateHealth();
+
+message.innerText =
+"WRONG ANSWER";
+}
+}
+
+/* =========================================================
+   ACTIVITY RESULT
+========================================================= */
+
+function correctActivity(){
+
+message.innerText =
+"ACTIVITY COMPLETED";
+}
+
+function wrongActivity(){
+
+health -= 20;
+
+updateHealth();
+
+message.innerText =
+"WRONG ACTIVITY";
+}
+
+/* =========================================================
+   NEXT ROOM
+========================================================= */
+
+function nextRoom(){
+
+document
+.getElementById("doorScreen")
+.style.display = "flex";
+
+setTimeout(()=>{
+
+document
+.getElementById("doorScreen")
+.style.display = "none";
+
+currentRoom++;
+
+currentPuzzle = 0;
+
+if(currentRoom < rooms.length){
+
+loadPuzzle();
+
+}
+else{
+
+showVideoScene();
+
+}
+
+},3000);
+}
+/* =========================================================
+   END GAME
+/* SHOW FINAL VIDEO */
+
+/* SHOW FINAL VIDEO */
+
+function showVideoScene(){
+
+const videoScene =
+document.getElementById("videoScene");
+
+const video =
+document.getElementById("endingVideo");
+
+videoScene.style.display = "flex";
+
+video.currentTime = 0;
+
+/* FORCE PLAY */
+
+const playPromise = video.play();
+
+if(playPromise !== undefined){
+
+playPromise.then(()=>{
+
+console.log("Video Playing");
+
+})
+.catch(error=>{
+
+console.log("Autoplay blocked:", error);
+
+/* If blocked, show controls */
+
+video.controls = true;
+
+});
+
+}
+
+/* WHEN VIDEO ENDS */
+
+video.onended = ()=>{
+
+videoScene.style.display = "none";
+
+showEndingScene();
+
+};
+
+}
+
+function showEndingScene(){
+
+document
+.getElementById("endingScene")
+.style.display = "flex";
+
+setTimeout(()=>{
+
+document
+.getElementById("endingScene")
+.style.display = "none";
+
+endGame();
+
+},6000);
+}
+function endGame(){
+
+document
+.getElementById("finalScreen")
+.style.display = "flex";
+}
+
+/* =========================================================
+   LOAD ACTIVITIES
+========================================================= */
+
+function loadActivities(puzzle){
+
+/* SOUND */
+
+if(puzzle.activity === "sound"){
+
+activity.innerHTML = `
+
+<h3>🎤 SOUND MATCH</h3>
+
+<p>Choose object related to sound reflection.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+🔊 Speaker
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+🔥 Fire
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+💧 Water
+</button>
+
+</div>
+
+`;
+
+}
+
+/* NUMBER */
+
+if(puzzle.activity === "number"){
+
+activity.innerHTML = `
+
+<h3>🔢 NUMBER PATTERN</h3>
+
+<p>Select correct number.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+25
+</button>
+
+<button class="activityBtn"
+onclick="correctActivity()">
+30
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+35
+</button>
+
+</div>
+
+`;
+
+}
+
+/* WIRE */
+
+if(puzzle.activity === "wire"){
+
+activity.innerHTML = `
+
+<h3>⚡ WIRE CONNECTION</h3>
+
+<p>Connect correct wire.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+🔴 Red
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+🔵 Blue
+</button>
+
+<button class="activityBtn"
+onclick="correctActivity()">
+🟢 Green
+</button>
+
+</div>
+
+`;
+
+}
+
+/* LETTERS */
+
+if(puzzle.activity === "letters"){
+
+activity.innerHTML = `
+
+<h3>🔤 LETTER SEQUENCE</h3>
+
+<p>Select missing letter.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+M
+</button>
+
+<button class="activityBtn"
+onclick="correctActivity()">
+P
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Q
+</button>
+
+</div>
+
+`;
+
+}
+
+/* DOOR */
+
+if(puzzle.activity === "door"){
+
+activity.innerHTML = `
+
+<h3>🚪 LOGIC DOOR</h3>
+
+<p>Choose correct strategy.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+Ask Opposite
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Break Door
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Guess
+</button>
+
+</div>
+
+`;
+
+}
+
+/* WORD */
+
+if(puzzle.activity === "word"){
+
+activity.innerHTML = `
+
+<h3>🧩 WORD SCRAMBLE</h3>
+
+<p>Find correct word.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+ESCAPE
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+SCREEN
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+SEARCH
+</button>
+
+</div>
+
+`;
+
+}
+
+/* CALENDAR */
+
+if(puzzle.activity === "calendar"){
+
+activity.innerHTML = `
+
+<h3>📅 TIME SHIFT</h3>
+
+<p>Select correct timeline.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+Today
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Tomorrow
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Yesterday
+</button>
+
+</div>
+
+`;
+
+}
+
+/* BOTTLE */
+
+if(puzzle.activity === "bottle"){
+
+activity.innerHTML = `
+
+<h3>🧪 SAFE BOTTLE</h3>
+
+<p>Find safe bottle.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Bottle A
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Bottle B
+</button>
+
+<button class="activityBtn"
+onclick="correctActivity()">
+Bottle C
+</button>
+
+</div>
+
+`;
+
+}
+
+/* ICE */
+
+if(puzzle.activity === "ice"){
+
+activity.innerHTML = `
+
+<h3>❄️ ICE PATTERN</h3>
+
+<p>Choose next square number.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+14
+</button>
+
+<button class="activityBtn"
+onclick="correctActivity()">
+16
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+18
+</button>
+
+</div>
+
+`;
+
+}
+
+/* STEPS */
+
+if(puzzle.activity === "steps"){
+
+activity.innerHTML = `
+
+<h3>👣 WALK TRACK</h3>
+
+<p>Choose what increases while walking.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+Footsteps
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Money
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Shadow
+</button>
+
+</div>
+
+`;
+
+}
+
+/* MIRROR */
+
+if(puzzle.activity === "mirror"){
+
+activity.innerHTML = `
+
+<h3>🪞 MIRROR CODE</h3>
+
+<p>Decode reflection.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+THIS
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+SHIFT
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+THIEF
+</button>
+
+</div>
+
+`;
+
+}
+
+/* SWITCH */
+
+if(puzzle.activity === "switch"){
+
+activity.innerHTML = `
+
+<h3>💡 BULB TEST</h3>
+
+<p>How to identify correct bulb?</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+Use Heat
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Random
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Break Switch
+</button>
+
+</div>
+
+`;
+
+}
+
+/* WATER */
+
+if(puzzle.activity === "water"){
+
+activity.innerHTML = `
+
+<h3>🌊 FLOW TEST</h3>
+
+<p>Choose flowing object.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+Water
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Stone
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Wall
+</button>
+
+</div>
+
+`;
+
+}
+
+/* CALENDAR 2 */
+
+if(puzzle.activity === "calendar2"){
+
+activity.innerHTML = `
+
+<h3>📆 LEAP YEAR</h3>
+
+<p>Select special date.</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+Feb 29
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Feb 30
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Jan 1
+</button>
+
+</div>
+
+`;
+
+}
+
+/* CLOCK */
+
+if(puzzle.activity === "clock"){
+
+activity.innerHTML = `
+
+<h3>⏳ FINAL CHOICE</h3>
+
+<p>What can never be held?</p>
+
+<div class="activityButtons">
+
+<button class="activityBtn"
+onclick="correctActivity()">
+Time
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Money
+</button>
+
+<button class="activityBtn"
+onclick="wrongActivity()">
+Light
+</button>
+
+</div>
+
+`;
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
