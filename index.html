@@ -1,1034 +1,1042 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>FINAL ESCAPE</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    width:100%;
-    height:100%;
-}
-
-body{
-    overflow:hidden;
-    font-family:'Orbitron',sans-serif;
-    background:black;
-    width:100%;
-    height:100%;
-    touch-action:manipulation;
-}
-
-/* GAME */
-
-#game{
-    width:100%;
-    height:100%;
-    background-size:cover;
-    background-position:center;
-    transition:1s;
-    position:relative;
-    overflow:hidden;
-}
-
-#overlay{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:transparent;
-}
-
-/* START SCREEN */
-
-.screen{
-    position:absolute;
-    width:100%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:100;
-    background:black;
-}
-
-.box{
-    width:900px;
-    max-width:95%;
-    background:rgba(0, 0, 0, 0.9);
-    border:2px solid cyan;
-    border-radius:30px;
-    padding:40px;
-    text-align:center;
-    color:white;
-    box-shadow:0 0 35px cyan;
-}
-
-h1{
-    font-size:60px;
-    color:cyan;
-    margin-bottom:20px;
-    text-shadow:
-    0 0 15px cyan,
-    0 0 30px cyan;
-}
-
-.story{
-    font-size:19px;
-    line-height:1.8;
-    margin-bottom:25px;
-}
-
-input{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:12px;
-    margin-top:20px;
-    margin-bottom:30px;
-    font-size:18px;
-    text-align:center;
-}
-
-/* CHARACTERS */
-
-#characters{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.character{
-    width:170px;
-    height:220px;
-    background:rgba(255,255,255,0.08);
-    border-radius:20px;
-    border:2px solid transparent;
-    cursor:pointer;
-    transition:0.3s;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-
-.character:hover{
-    transform:scale(1.05);
-    border:2px solid cyan;
-}
-
-.character img{
-    width:100px;
-    margin-bottom:10px;
-}
-
-.selected{
-    border:2px solid cyan;
-    box-shadow:0 0 20px cyan;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>FINAL ESCAPE</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            background: black;
+            width: 100%;
+            height: 100%;
+            touch-action: manipulation;
+        }
+
+        /* GAME */
+
+        #game {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: 1s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+        }
+
+        /* START SCREEN */
+
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            background: black;
+        }
+
+        .box {
+            width: 900px;
+            max-width: 95%;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid cyan;
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 35px cyan;
+        }
+
+        h1 {
+            font-size: 60px;
+            color: cyan;
+            margin-bottom: 20px;
+            text-shadow:
+                0 0 15px cyan,
+                0 0 30px cyan;
+        }
+
+        .story {
+            font-size: 19px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        /* CHARACTERS */
+
+        #characters {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .character {
+            width: 170px;
+            height: 220px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .character:hover {
+            transform: scale(1.05);
+            border: 2px solid cyan;
+        }
+
+        .character img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+
+        .selected {
+            border: 2px solid cyan;
+            box-shadow: 0 0 20px cyan;
+        }
+
+        /* BUTTON */
+
+        button {
+
+            padding: 12px 20px;
+
+            border: none;
 
-/* BUTTON */
+            border-radius: 12px;
 
-button{
+            background: cyan;
 
-    padding:12px 20px;
+            color: black;
 
-    border:none;
+            font-size: clamp(14px, 2vw, 18px);
 
-    border-radius:12px;
+            font-weight: bold;
 
-    background:cyan;
+            cursor: pointer;
 
-    color:black;
+            transition: 0.3s;
+        }
 
-    font-size:clamp(14px,2vw,18px);
+        button:hover {
+            transform: scale(1.05);
+        }
 
-    font-weight:bold;
+        /* ROOM */
 
-    cursor:pointer;
+        #roomInfo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 26px;
+            z-index: 50;
+            text-shadow: 0 0 10px cyan;
+        }
 
-    transition:0.3s;
-}
+        /* TIMER */
 
-button:hover{
-    transform:scale(1.05);
-}
+        #timer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 22px;
+            z-index: 50;
+        }
 
-/* ROOM */
+        /* HEALTH */
 
-#roomInfo{
-    position:absolute;
-    top:20px;
-    left:20px;
-    color:white;
-    font-size:26px;
-    z-index:50;
-    text-shadow:0 0 10px cyan;
-}
+        #healthArea {
+            position: absolute;
+            top: 20px;
+            right: 120px;
+            z-index: 60;
+        }
 
-/* TIMER */
+        #healthContainer {
+            width: 180px;
+            height: 18px;
+            background: #222;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid white;
+        }
 
-#timer{
-    position:absolute;
-    top:20px;
-    right:20px;
-    color:white;
-    font-size:22px;
-    z-index:50;
-}
+        #healthBar {
+            width: 100%;
+            height: 100%;
+            background: red;
+            transition: 0.4s;
+        }
 
-/* HEALTH */
+        #healthText {
+            color: white;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 4px;
+        }
 
-#healthArea{
-    position:absolute;
-    top:20px;
-    right:120px;
-    z-index:60;
-}
+        /* QUESTION AREA */
 
-#healthContainer{
-    width:180px;
-    height:18px;
-    background:#222;
-    border-radius:20px;
-    overflow:hidden;
-    border:2px solid white;
-}
+        #questionArea {
 
-#healthBar{
-    width:100%;
-    height:100%;
-    background:red;
-    transition:0.4s;
-}
+            position: absolute;
 
-#healthText{
-    color:white;
-    font-size:13px;
-    text-align:center;
-    margin-top:4px;
-}
+            left: 50%;
+            bottom: 10px;
 
-/* QUESTION AREA */
+            transform: translateX(-50%);
 
-#questionArea{
+            width: 95%;
+            max-width: 1200px;
 
-    position:absolute;
+            background: rgba(0, 0, 0, 0.40);
 
-    left:50%;
-    bottom:10px;
+            border-radius: 18px;
 
-    transform:translateX(-50%);
+            padding: 14px;
+            max-height: 42vh;
+            overflow-y: auto;
+            color: white;
 
-    width:95%;
-    max-width:1200px;
+            z-index: 40;
 
-    background:rgba(0,0,0,0.40);
+            backdrop-filter: blur(2px);
 
-    border-radius:18px;
+            display: flex;
 
-    padding:14px;
-    max-height:42vh;
-    overflow-y:auto;
-    color:white;
+            gap: 15x;
 
-    z-index:40;
+            align-items: stretch;
+        }
 
-    backdrop-filter:blur(2px);
+        .character {
+            min-width: 120px;
+        }
 
-    display:flex;
+        /* QUESTION SECTION */
 
-    gap:15px;
+        #questionSection {
 
-    align-items:stretch;
-}
-.character{
-    min-width:120px;
-}
-/* QUESTION SECTION */
+            flex: 1.7;
+        }
 
-#questionSection{
+        /* QUESTION */
+        #question {
 
-    flex:1.4;
-}
+            font-size: clamp(15px, 2vw, 22px);
 
-/* QUESTION */
-#question{
+            line-height: 1.5;
 
-    font-size:clamp(15px,2vw,22px);
+            margin-bottom: 22px;
 
-    line-height:1.5;
+            text-align: left;
+        }
 
-    margin-bottom:10px;
+        /* OPTIONS */
 
-    text-align:left;
-}
-/* OPTIONS */
+        #options {
 
-#options{
+            display: grid;
 
-    display:grid;
+            grid-template-columns: 1fr 1fr;
 
-    grid-template-columns:1fr 1fr;
+            gap: 10px;
+        }
 
-    gap:10px;
-}
+        /* OPTION */
 
-/* OPTION */
+        .option {
 
-.option{
+            width: 100%;
 
-    width:100%;
+            padding: 12px;
 
-    padding:12px;
+            border: none;
 
-    border:none;
+            border-radius: 10px;
 
-    border-radius:10px;
+            background: rgba(255, 255, 255, 0.08);
 
-    background:rgba(255,255,255,0.08);
+            color: white;
 
-    color:white;
+            font-size: clamp(13px, 2vw, 16px);
 
-    font-size:clamp(13px,2vw,16px);
+            cursor: pointer;
 
-    cursor:pointer;
+            transition: 0.3s;
+        }
 
-    transition:0.3s;
-}
+        .option:hover {
 
-.option:hover{
+            background: rgba(0, 255, 255, 0.2);
 
-    background:rgba(0,255,255,0.2);
+            transform: scale(1.02);
+        }
 
-    transform:scale(1.02);
-}
+        /* ACTIVITY */
 
-/* ACTIVITY */
+        #activity {
 
-#activity{
+            flex: 1;
 
-    flex:1;
+            background: rgba(255, 255, 255, 0.04);
 
-    background:rgba(255,255,255,0.04);
+            padding: 16px;
 
-    padding:14px;
+            margin-bottom: 22px;
 
-    border-radius:16px;
+            border-radius: 16px;
 
-    min-height:160px;
 
-    display:flex;
+            min-height: 160px;
 
-    flex-direction:column;
+            display: flex;
 
-    justify-content:center;
+            flex-direction: column;
 
-    align-items:center;
+            justify-content: center;
 
-    text-align:center;
-}
+            align-items: center;
 
-/* ACTIVITY BUTTONS */
+            text-align: center;
 
-.activityButtons{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:10px;
-    width:100%;
-}
+            gap: 15px;
+        }
 
-/* ACTIVITY BUTTON */
+        /* ACTIVITY BUTTONS */
 
-.activityBtn{
+        .activityButtons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
 
-    padding:10px 14px;
+        /* ACTIVITY BUTTON */
 
-    border:none;
+        .activityBtn {
 
-    border-radius:10px;
+            padding: 18px 14px;
 
-    background:#333;
+            border: none;
 
-    color:white;
 
-    cursor:pointer;
+            border-radius: 10px;
 
-    transition:0.3s;
+            background: #333;
 
-    font-size:clamp(12px,2vw,15px);
+            color: white;
 
-    min-width:80px;
+            cursor: pointer;
 
-    flex:1;
-}
+            transition: 0.3s;
 
-.activityBtn:hover{
+            font-size: clamp(12px, 2vw, 15px);
 
-    background:cyan;
+            min-width: 80px;
 
-    color:black;
-}
+            flex: 1;
+        }
 
-/* MESSAGE */
+        .activityBtn:hover {
 
-#message{
+            background: cyan;
 
-    margin-top:10px;
+            color: black;
+        }
 
-    font-size:16px;
+        /* MESSAGE */
 
-    min-height:20px;
+        #message {
 
-    color:#00ff99;
+            margin-top: 10px;
 
-    text-align:left;
-}
+            font-size: 16px;
 
-/* HINT BUTTON */
+            min-height: 20px;
 
-#hintBtn{
+            color: #00ff99;
 
-    margin-top:10px;
+            text-align: left;
+        }
 
-    padding:8px 14px;
+        /* HINT BUTTON */
 
-    border:none;
+        #hintBtn {
 
-    border-radius:10px;
+            margin-top: 10px;
 
-    background:orange;
+            padding: 8px 14px;
 
-    color:black;
+            border: none;
 
-    font-size:13px;
+            border-radius: 10px;
 
-    font-weight:bold;
+            background: orange;
 
-    cursor:pointer;
+            color: black;
 
-    display:none;
-}
+            font-size: 13px;
 
-/* CLUE POPUP */
+            font-weight: bold;
 
-#cluePopup{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    background:black;
-    border:2px solid cyan;
-    border-radius:20px;
-    padding:30px;
-    color:white;
-    z-index:300;
-    display:none;
-    text-align:center;
-    box-shadow:0 0 25px cyan;
-    width:400px;
-    max-width:90%;
-}
+            cursor: pointer;
 
-/* DOOR */
+            display: none;
+        }
 
-#doorScreen{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:black;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    z-index:500;
-    color:white;
-}
-/* VIDEO SCENE */
+        /* CLUE POPUP */
 
-#videoScene{
+        #cluePopup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: black;
+            border: 2px solid cyan;
+            border-radius: 20px;
+            padding: 30px;
+            color: white;
+            z-index: 300;
+            display: none;
+            text-align: center;
+            box-shadow: 0 0 25px cyan;
+            width: 400px;
+            max-width: 90%;
+        }
 
-    position:absolute;
+        /* DOOR */
 
-    width:100%;
-    height:100%;
+        #doorScreen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 500;
+            color: white;
+        }
 
-    background:black;
+        /* VIDEO SCENE */
 
-    z-index:540;
+        #videoScene {
 
-    display:none;
+            position: absolute;
 
-    justify-content:center;
+            width: 100%;
+            height: 100%;
 
-    align-items:center;
+            background: black;
 
-    overflow:hidden;
-}
+            z-index: 540;
 
-/* VIDEO */
+            display: none;
 
-#endingVideo{
+            justify-content: center;
 
-    width:100%;
-    height:100%;
+            align-items: center;
 
-    object-fit:cover;
-}
-/* ENDING SCENE */
+            overflow: hidden;
+        }
 
-#endingScene{
+        /* VIDEO */
 
-    position:absolute;
+        #endingVideo {
 
-    width:100%;
-    height:100%;
+            width: 100%;
+            height: 100%;
 
-    background-image:
-    url("images/finalescape.jpg");
+            object-fit: cover;
+        }
 
-    background-size:cover;
+        /* ENDING SCENE */
 
-    background-position:center;
+        #endingScene {
 
-    z-index:550;
+            position: absolute;
 
-    display:none;
+            width: 100%;
+            height: 100%;
 
-    justify-content:center;
+            background-image:
+                url("images/finalescape.jpg");
 
-    align-items:center;
+            background-size: cover;
 
-    overflow:hidden;
-}
+            background-position: center;
 
-/* DARK OVERLAY */
+            z-index: 550;
 
-#endingOverlay{
+            display: none;
 
-    position:absolute;
+            justify-content: center;
 
-    width:100%;
-    height:100%;
+            align-items: center;
 
-    background:
-    linear-gradient(
-    rgba(0,0,0,0.45),
-    rgba(0,0,0,0.88)
-    );
-}
+            overflow: hidden;
+        }
 
-/* CONTENT */
+        /* DARK OVERLAY */
 
-#endingContent{
+        #endingOverlay {
 
-    position:relative;
+            position: absolute;
 
-    z-index:2;
+            width: 100%;
+            height: 100%;
 
-    text-align:center;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.45),
+                    rgba(0, 0, 0, 0.88));
+        }
 
-    color:white;
+        /* CONTENT */
 
-    animation:fadeUp 2s ease;
+        #endingContent {
 
-    padding:20px;
-}
+            position: relative;
 
-#endingContent h1{
+            z-index: 2;
 
-    font-size:70px;
+            text-align: center;
 
-    color:cyan;
+            color: white;
 
-    margin-bottom:25px;
+            animation: fadeUp 2s ease;
 
-    text-shadow:
-    0 0 20px cyan;
-}
+            padding: 20px;
+        }
 
-#endingContent p{
+        #endingContent h1 {
 
-    font-size:26px;
+            font-size: 70px;
 
-    line-height:1.8;
+            color: cyan;
 
-    max-width:900px;
-}
+            margin-bottom: 25px;
 
-/* ANIMATION */
+            text-shadow:
+                0 0 20px cyan;
+        }
 
-@keyframes fadeUp{
+        #endingContent p {
 
-    from{
+            font-size: 26px;
 
-        opacity:0;
-        transform:translateY(40px);
-    }
+            line-height: 1.8;
 
-    to{
+            max-width: 900px;
+        }
 
-        opacity:1;
-        transform:translateY(0);
-    }
-}
+        /* ANIMATION */
 
-/* IMAGE */
+        @keyframes fadeUp {
 
-#endingImage{
+            from {
 
-    width:500px;
-    max-width:90%;
+                opacity: 0;
+                transform: translateY(40px);
+            }
 
-    border-radius:25px;
+            to {
 
-    box-shadow:
-    0 0 40px cyan;
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    animation:endingZoom 3s ease;
-}
+        /* IMAGE */
 
-/* TEXT */
+        #endingImage {
 
-#endingContent{
+            width: 500px;
+            max-width: 90%;
 
-    margin-top:30px;
+            border-radius: 25px;
 
-    animation:fadeUp 2s ease;
-}
+            box-shadow:
+                0 0 40px cyan;
 
-#endingContent h1{
+            animation: endingZoom 3s ease;
+        }
 
-    font-size:60px;
+        /* TEXT */
 
-    color:cyan;
+        #endingContent {
 
-    margin-bottom:20px;
-}
+            margin-top: 30px;
 
-#endingContent p{
+            animation: fadeUp 2s ease;
+        }
 
-    font-size:24px;
+        #endingContent h1 {
 
-    line-height:1.8;
-}
-#endingVideo{
+            font-size: 60px;
 
-    width:100%;
-    height:100%;
+            color: cyan;
 
-    object-fit:cover;
+            margin-bottom: 20px;
+        }
 
-    background:black;
-}
-/* ANIMATIONS */
+        #endingContent p {
 
-@keyframes endingZoom{
+            font-size: 24px;
 
-    from{
+            line-height: 1.8;
+        }
 
-        transform:scale(0.6);
-        opacity:0;
-    }
+        #endingVideo {
 
-    to{
+            width: 100%;
+            height: 100%;
 
-        transform:scale(1);
-        opacity:1;
-    }
-}
+            object-fit: cover;
 
-@keyframes fadeUp{
+            background: black;
+        }
 
-    from{
+        /* ANIMATIONS */
 
-        opacity:0;
-        transform:translateY(40px);
-    }
+        @keyframes endingZoom {
 
-    to{
+            from {
 
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-#door{
-    width:220px;
-    height:320px;
-    background:#222;
-    border:8px solid #555;
-    border-radius:20px;
-    animation:openDoor 2s forwards;
-}
+                transform: scale(0.6);
+                opacity: 0;
+            }
 
-@keyframes openDoor{
-    0%{
-        transform:scaleX(1);
-    }
+            to {
 
-    100%{
-        transform:scaleX(0);
-    }
-}
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
-#key{
-    font-size:80px;
-    margin-bottom:20px;
-    animation:spin 2s linear infinite;
-}
+        @keyframes fadeUp {
 
-@keyframes spin{
-    from{
-        transform:rotate(0deg);
-    }
+            from {
 
-    to{
-        transform:rotate(360deg);
-    }
-}
+                opacity: 0;
+                transform: translateY(40px);
+            }
 
-/* FINAL */
+            to {
 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
+        #door {
+            width: 220px;
+            height: 320px;
+            background: #222;
+            border: 8px solid #555;
+            border-radius: 20px;
+            animation: openDoor 2s forwards;
+        }
 
-#finalScreen{
-    display:none;
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:black;
-    z-index:600;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    color:white;
-    padding:30px;
-}
+        @keyframes openDoor {
+            0% {
+                transform: scaleX(1);
+            }
 
-#finalScreen h1{
-    font-size:70px;
-    margin-bottom:20px;
-}
+            100% {
+                transform: scaleX(0);
+            }
+        }
 
-#finalScreen p{
-    font-size:24px;
-    line-height:1.8;
-    max-width:900px;
-    margin:auto;
-}
+        #key {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: spin 2s linear infinite;
+        }
 
-/* MOBILE */
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
 
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-    /* =========================================================
+        /* FINAL */
+
+
+
+        #finalScreen {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 600;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+
+        #finalScreen h1 {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        #finalScreen p {
+            font-size: 24px;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        /* MOBILE */
+
+
+        /* =========================================================
    MOBILE RESPONSIVE
 ========================================================= */
 
-@media(max-width:900px){
+        @media(max-width:900px) {
 
-    #game{
-        background-size:contain;
-        background-position:center 70px;
-        background-repeat:no-repeat;
-    }
+            #game {
+                background-size: contain;
+                background-position: center 70px;
+                background-repeat: no-repeat;
+            }
 
-    h1{
-        font-size:38px;
-    }
+            h1 {
+                font-size: 38px;
+            }
 
-    .box{
-        padding:20px;
-        width:95%;
-    }
+            .box {
+                padding: 20px;
+                width: 95%;
+            }
 
-    .story{
-        font-size:15px;
-        line-height:1.6;
-    }
+            .story {
+                font-size: 15px;
+                line-height: 1.6;
+            }
 
-    #roomInfo{
-        font-size:16px;
-        top:12px;
-        left:12px;
-    }
+            #roomInfo {
+                font-size: 16px;
+                top: 12px;
+                left: 12px;
+            }
 
-    #timer{
-        top:12px;
-        right:12px;
-        font-size:15px;
-    }
+            #timer {
+                top: 12px;
+                right: 12px;
+                font-size: 15px;
+            }
 
-    #healthArea{
-        top:42px;
-        right:12px;
-    }
+            #healthArea {
+                top: 42px;
+                right: 12px;
+            }
 
-    #healthContainer{
-        width:120px;
-        height:14px;
-    }
+            #healthContainer {
+                width: 120px;
+                height: 14px;
+            }
 
-    #healthText{
-        font-size:10px;
-    }
+            #healthText {
+                font-size: 10px;
+            }
 
-    #questionArea{
+            #questionArea {
 
-        flex-direction:column;
+                flex-direction: column;
 
-        width:95%;
+                width: 95%;
 
-        bottom:30px;
+                bottom: 30px;
 
-        padding:10px;
+                padding: 10px;
 
-        gap:10px;
+                gap: 10px;
 
-        max-height:85vh;
-    }
+                max-height: 85vh;
+            }
 
-    #questionSection{
-        width:100%;
-    }
+            #questionSection {
+                width: 100%;
+            }
 
-    #question{
-        font-size:15px;
-    }
+            #question {
+                font-size: 15px;
+            }
 
-    #options{
+            #options {
 
-        grid-template-columns:1fr;
+                grid-template-columns: 1fr;
 
-        gap:8px;
-    }
+                gap: 8px;
+            }
 
-    .option{
-        padding:10px;
-        font-size:13px;
-    }
+            .option {
+                padding: 10px;
+                font-size: 13px;
+            }
 
-    #activity{
+            #activity {
 
-        width:100%;
+                width: 100%;
 
-        min-height:auto;
+                min-height: auto;
 
-        padding:10px;
-    }
+                padding: 10px;
+            }
 
-    .activityButtons{
+            .activityButtons {
 
-        gap:8px;
-    }
+                gap: 8px;
+            }
 
-    .activityBtn{
+            .activityBtn {
 
-        flex:1;
+                flex: 1;
 
-        min-width:70px;
+                min-width: 70px;
 
-        font-size:12px;
+                font-size: 12px;
 
-        padding:10px;
-    }
+                padding: 10px;
+            }
 
-    #message{
-        font-size:13px;
-    }
+            #message {
+                font-size: 13px;
+            }
 
-    #hintBtn{
-        width:100%;
-        margin-top:8px;
-    }
+            #hintBtn {
+                width: 100%;
+                margin-top: 8px;
+            }
 
-    #cluePopup{
+            #cluePopup {
 
-        width:92%;
+                width: 92%;
 
-        padding:20px;
-    }
+                padding: 20px;
+            }
 
-    #door{
-        width:150px;
-        height:240px;
-    }
+            #door {
+                width: 150px;
+                height: 240px;
+            }
 
-    #key{
-        font-size:55px;
-    }
+            #key {
+                font-size: 55px;
+            }
 
-    #endingContent h1{
-        font-size:34px;
-    }
+            #endingContent h1 {
+                font-size: 34px;
+            }
 
-    #endingContent p{
-        font-size:16px;
-        line-height:1.6;
-    }
+            #endingContent p {
+                font-size: 16px;
+                line-height: 1.6;
+            }
 
-    #finalScreen h1{
-        font-size:40px;
-    }
+            #finalScreen h1 {
+                font-size: 40px;
+            }
 
-    #finalScreen p{
-        font-size:16px;
-        line-height:1.7;
-    }
+            #finalScreen p {
+                font-size: 16px;
+                line-height: 1.7;
+            }
 
-    .character{
-        width:140px;
-        height:180px;
-    }
+            .character {
+                width: 140px;
+                height: 180px;
+            }
 
-    .character img{
-        width:70px;
-    }
+            .character img {
+                width: 70px;
+            }
 
-}
+        }
 
-/* SMALL MOBILE */
+        /* SMALL MOBILE */
 
-@media(max-width:500px){
+        @media(max-width:500px) {
 
-    #questionArea{
-        bottom:5px;
-    }
+            #questionArea {
+                bottom: 5px;
+            }
 
-    #question{
-        font-size:13px;
-    }
+            #question {
+                font-size: 13px;
+            }
 
-    .option{
-        font-size:12px;
-    }
+            .option {
+                font-size: 12px;
+            }
 
-    .activityBtn{
-        font-size:11px;
-    }
+            .activityBtn {
+                font-size: 11px;
+            }
 
-    h1{
-        font-size:30px;
-    }
+            h1 {
+                font-size: 30px;
+            }
 
-}
-/* LANDSCAPE MOBILE */
+        }
 
-@media (max-height:600px){
+        /* LANDSCAPE MOBILE */
 
-    #questionArea{
+        @media (max-height:600px) {
 
-        max-height:55vh;
+            #questionArea {
 
-        overflow-y:auto;
-    }
+                max-height: 55vh;
 
-    .box{
-        padding:15px;
-    }
+                overflow-y: auto;
+            }
 
-    h1{
-        font-size:28px;
-    }
+            .box {
+                padding: 15px;
+            }
 
-    .story{
-        font-size:13px;
-    }
+            h1 {
+                font-size: 28px;
+            }
 
-}
+            .story {
+                font-size: 13px;
+            }
 
-</style>
+        }
+    </style>
 </head>
 
 <body>
 
-<div id="game">
+    <div id="game">
 
-<div id="overlay"></div>
+        <div id="overlay"></div>
 
-<!-- START SCREEN -->
+        <!-- START SCREEN -->
 
-<div class="screen" id="startScreen">
+        <div class="screen" id="startScreen">
 
-<div class="box">
+            <div class="box">
 
-<h1>FINAL ESCAPE</h1>
+                <h1>FINAL ESCAPE</h1>
 
-<p class="story">
-You are trapped inside a forgotten underground facility.
-Choose your character and begin the escape mission.
-</p>
+                <p class="story">
+                    You are trapped inside a forgotten underground facility.
+                    Choose your character and begin the escape mission.
+                </p>
 
-<input
-type="text"
-id="nameInput"
-placeholder="ENTER YOUR NAME"
->
+                <input type="text" id="nameInput" placeholder="ENTER YOUR NAME">
 
-<div id="characters">
+                <div id="characters">
 
-<div class="character" onclick="selectCharacter(0)">
-<img src="https://cdn-icons-png.flaticon.com/128/3952/3952988.png">
-<h2>Doctor</h2>
-<p>+20 Health</p>
-</div>
+                    <div class="character" onclick="selectCharacter(0)">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3952/3952988.png">
+                        <h2>Doctor</h2>
+                        <p>+20 Health</p>
+                    </div>
 
-<div class="character" onclick="selectCharacter(1)">
-<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
-<h2>Hacker</h2>
-<p>+5 sec for Each Question</p>
-</div>
+                    <div class="character" onclick="selectCharacter(1)">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
+                        <h2>Hacker</h2>
+                        <p>+5 sec for Each Question</p>
+                    </div>
 
-<div class="character" onclick="selectCharacter(2)">
-<img src="https://cdn-icons-png.flaticon.com/512/2784/2784445.png">
-<h2>Scientist</h2>
-<p>Gets Clues</p>
-</div>
+                    <div class="character" onclick="selectCharacter(2)">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2784/2784445.png">
+                        <h2>Scientist</h2>
+                        <p>Gets Clues</p>
+                    </div>
 
-</div>
+                </div>
 
-<br><br>
+                <br><br>
 
-<button onclick="showInfo()">
-CONTINUE
-</button>
+                <button onclick="showInfo()">
+                    CONTINUE
+                </button>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-<!-- INFO SCREEN -->
+        <!-- INFO SCREEN -->
 
-<div class="screen" id="infoScreen" style="display:none;">
+        <div class="screen" id="infoScreen" style="display:none;">
 
-<div class="box">
+            <div class="box">
 
-<h1>MISSION BRIEFING</h1>
+                <h1>MISSION BRIEFING</h1>
 
-<p class="story">
+                <p class="story">
 
-Emergency alarms echo through the underground facility.
+                    Emergency alarms echo through the underground facility.
 
-<br><br>
+                    <br><br>
 
-<span style="color:cyan">
-“Only intelligent minds may escape alive.”
-</span>
+                    <span style="color:cyan">
+                        “Only intelligent minds may escape alive.”
+                    </span>
 
-</p>
+                </p>
 
-<div style="
+                <div style="
 text-align:left;
 background:rgba(255,255,255,0.05);
 padding:20px;
@@ -1036,1151 +1044,1146 @@ border-radius:20px;
 line-height:2;
 ">
 
-<h2 style="color:cyan;">
-HOW TO PLAY
-</h2>
+                    <h2 style="color:cyan;">
+                        HOW TO PLAY
+                    </h2>
 
-<ul>
+                    <ul>
 
-<li>Every room contains 3 puzzles.</li>
-<li>Every puzzle has a related activity.</li>
-<li>Wrong answers decrease health by 20.</li>
-<li>If timer reaches zero, room restarts.</li>
-<li>Scientist can use hint popup.</li>
-<li>Complete all levels to escape.</li>
+                        <li>Every room contains 3 puzzles.</li>
+                        <li>Every puzzle has a related activity.</li>
+                        <li>Wrong answers decrease health by 20.</li>
+                        <li>If timer reaches zero, room restarts.</li>
+                        <li>Scientist can use hint popup.</li>
+                        <li>Complete all levels to escape.</li>
 
-</ul>
+                    </ul>
 
-</div>
+                </div>
 
-<br><br>
+                <br><br>
 
-<button onclick="startGame()">
-START GAME
-</button>
+                <button onclick="startGame()">
+                    START GAME
+                </button>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-<!-- ROOM INFO -->
+        <!-- ROOM INFO -->
 
-<div id="roomInfo">
-ROOM 1 • LEVEL 1
-</div>
+        <div id="roomInfo">
+            ROOM 1 • LEVEL 1
+        </div>
 
-<!-- TIMER -->
+        <!-- TIMER -->
 
-<div id="timer">
-⏳ 30
-</div>
+        <div id="timer">
+            ⏳ 60
+        </div>
 
-<!-- HEALTH -->
+        <!-- HEALTH -->
 
-<div id="healthArea">
+        <div id="healthArea">
 
-<div id="healthContainer">
-<div id="healthBar"></div>
-</div>
+            <div id="healthContainer">
+                <div id="healthBar"></div>
+            </div>
 
-<div id="healthText">
-100/100
-</div>
+            <div id="healthText">
+                100/100
+            </div>
 
-</div>
+        </div>
 
-<!-- QUESTION AREA -->
+        <!-- QUESTION AREA -->
 
-<div id="questionArea">
+        <div id="questionArea">
 
-<div id="questionSection">
+            <div id="questionSection">
 
-<div id="question"></div>
+                <div id="question"></div>
 
-<div id="options"></div>
+                <div id="options"></div>
 
-<button
-id="hintBtn"
-onclick="showScientistHint()">
+                <button id="hintBtn" onclick="showScientistHint()">
 
-SHOW HINT
+                    SHOW HINT
 
-</button>
+                </button>
 
-<div id="message"></div>
+                <div id="message"></div>
 
-</div>
+            </div>
 
-<div id="activity"></div>
+            <div id="activity"></div>
 
-</div>
+        </div>
 
-<!-- CLUE -->
+        <!-- CLUE -->
 
-<div id="cluePopup">
+        <div id="cluePopup">
 
-<h2 style="color:cyan;margin-bottom:15px;">
-SCIENTIST CLUE
-</h2>
+            <h2 style="color:cyan;margin-bottom:15px;">
+                SCIENTIST CLUE
+            </h2>
 
-<p id="clueText"></p>
+            <p id="clueText"></p>
 
-<br>
+            <br>
 
-<button onclick="closeClue()">
-CONTINUE
-</button>
+            <button onclick="closeClue()">
+                CONTINUE
+            </button>
 
-</div>
+        </div>
 
-<!-- DOOR -->
+        <!-- DOOR -->
 
-<div id="doorScreen">
+        <div id="doorScreen">
 
-<div id="key">
-🗝️
-</div>
+            <div id="key">
+                🗝️
+            </div>
 
-<div id="door"></div>
+            <div id="door"></div>
 
-<h2 style="margin-top:30px;">
-NEXT ROOM UNLOCKED
-</h2>
+            <h2 style="margin-top:30px;">
+                NEXT ROOM UNLOCKED
+            </h2>
 
-</div>
+        </div>
 
-<!-- FINAL -->
-<!-- ENDING SCENE -->
+        <!-- FINAL -->
+        <!-- ENDING SCENE -->
 
-<!-- VIDEO SCENE -->
+        <!-- VIDEO SCENE -->
 
-<!-- VIDEO SCENE -->
+        <!-- VIDEO SCENE -->
 
-<div id="videoScene">
+        <div id="videoScene">
 
-    <video
-    id="endingVideo"
-    playsinline
-    preload="auto">
+            <video id="endingVideo" playsinline preload="auto">
 
-        <source
-        src="images/videos/dooropen.mp4"
-        type="video/mp4">
+                <source src="images/videos/dooropen.mp4" type="video/mp4">
 
-    </video>
+            </video>
 
-</div>
+        </div>
 
-<div id="endingScene">
+        <div id="endingScene">
 
-    <div id="endingOverlay"></div>
+            <div id="endingOverlay"></div>
 
-    <div id="endingContent">
+            <div id="endingContent">
 
-        <h1>ESCAPE SUCCESSFUL</h1>
+                <h1>ESCAPE SUCCESSFUL</h1>
 
-        <p>
+                <p>
 
-            The underground facility begins to collapse...
+                    The underground facility begins to collapse...
 
-            <br><br>
+                    <br><br>
 
-          Robotic Voice Said,
-         
+                    Robotic Voice Said,
 
-            <br><br>
 
-            <span style="color:cyan;">
+                    <br><br>
 
-            “Congratulations. Intelligence proved stronger than fear.”
+                    <span style="color:cyan;">
 
-            </span>
+                        “Congratulations. Intelligence proved stronger than fear.”
 
-            <br><br>
+                    </span>
 
-            But the mystery has only begun...
+                    <br><br>
 
-        </p>
+                    But the mystery has only begun...
+
+                </p>
+
+            </div>
+
+        </div>
+        <div id="finalScreen">
+
+            <div>
+
+                <h1>MISSION COMPLETE</h1>
+
+                <p>
+
+                    You escaped the forgotten underground facility.
+
+                    <br><br>
+
+                    <span style="color:cyan">
+                        “This is only the beginning...
+                        The game continues.”
+                    </span>
+
+                    <br><br>
+
+                    More rooms.
+                    More mysteries.
+                    More experiments await.
+
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
 
-</div>
-<div id="finalScreen">
+    <script>
 
-<div>
+        /* PLAYER */
 
-<h1>MISSION COMPLETE</h1>
+        /* =========================================================
+           FINAL ESCAPE - FULL JAVASCRIPT CODE
+        ========================================================= */
 
-<p>
+        /* =========================================================
+           PLAYER DATA
+        ========================================================= */
 
-You escaped the forgotten underground facility.
+        let playerName = "";
+        let selectedCharacter = null;
 
-<br><br>
+        let health = 100;
+        let maxHealth = 100;
 
-<span style="color:cyan">
-“This is only the beginning...
-The game continues.”
-</span>
+        let timer = 60;
+        let timerInterval;
 
-<br><br>
+        /* =========================================================
+           CHARACTERS
+        ========================================================= */
 
-More rooms.
-More mysteries.
-More experiments await.
+        const characters = [
 
-</p>
+            {
+                name: "Doctor",
+                health: 120,
+                time: 0,
+                clue: false
+            },
 
-</div>
+            {
+                name: "Hacker",
+                health: 100,
+                time: 5,
+                clue: false
+            },
 
-</div>
+            {
+                name: "Scientist",
+                health: 100,
+                time: 0,
+                clue: true
+            }
 
-</div>
+        ];
 
-<script>
+        /* =========================================================
+           SELECT CHARACTER
+        ========================================================= */
 
-/* PLAYER */
+        function selectCharacter(index) {
 
-/* =========================================================
-   FINAL ESCAPE - FULL JAVASCRIPT CODE
-========================================================= */
+            selectedCharacter = characters[index];
 
-/* =========================================================
-   PLAYER DATA
-========================================================= */
+            document
+                .querySelectorAll(".character")
+                .forEach(card => {
 
-let playerName = "";
-let selectedCharacter = null;
+                    card.classList.remove("selected");
 
-let health = 100;
-let maxHealth = 100;
+                });
 
-let timer = 30;
-let timerInterval;
+            document
+                .querySelectorAll(".character")
+            [index]
+                .classList.add("selected");
+        }
 
-/* =========================================================
-   CHARACTERS
-========================================================= */
+        /* =========================================================
+           SHOW INFO SCREEN
+        ========================================================= */
 
-const characters = [
+        function showInfo() {
 
-{
-name:"Doctor",
-health:120,
-time:0,
-clue:false
-},
+            playerName =
+                document
+                    .getElementById("nameInput")
+                    .value;
 
-{
-name:"Hacker",
-health:100,
-time:5,
-clue:false
-},
+            if (playerName === "") {
 
-{
-name:"Scientist",
-health:100,
-time:0,
-clue:true
-}
+                alert("ENTER YOUR NAME");
 
-];
+                return;
+            }
 
-/* =========================================================
-   SELECT CHARACTER
-========================================================= */
+            if (selectedCharacter === null) {
 
-function selectCharacter(index){
+                alert("SELECT A CHARACTER");
 
-selectedCharacter = characters[index];
+                return;
+            }
 
-document
-.querySelectorAll(".character")
-.forEach(card=>{
+            document
+                .getElementById("startScreen")
+                .style.display = "none";
 
-card.classList.remove("selected");
+            document
+                .getElementById("infoScreen")
+                .style.display = "flex";
+        }
 
-});
+        /* =========================================================
+           ROOMS DATA
+        ========================================================= */
 
-document
-.querySelectorAll(".character")
-[index]
-.classList.add("selected");
-}
+        const rooms = [
 
-/* =========================================================
-   SHOW INFO SCREEN
-========================================================= */
+            /* ================= ROOM 1 ================= */
 
-function showInfo(){
+            {
 
-playerName =
-document
-.getElementById("nameInput")
-.value;
+                title: "ROOM 1 — THE AWAKENING CHAMBER",
 
-if(playerName === ""){
+                backgrounds: [
 
-alert("ENTER YOUR NAME");
+                    "images/phase1.jpeg",
+                    "images/phase2.jpeg",
+                    "images/phase3.jpeg"
 
-return;
-}
+                ],
 
-if(selectedCharacter === null){
+                puzzles: [
 
-alert("SELECT A CHARACTER");
+                    {
 
-return;
-}
-
-document
-.getElementById("startScreen")
-.style.display = "none";
-
-document
-.getElementById("infoScreen")
-.style.display = "flex";
-}
-
-/* =========================================================
-   ROOMS DATA
-========================================================= */
-
-const rooms = [
-
-/* ================= ROOM 1 ================= */
-
-{
-
-title:"ROOM 1 — THE AWAKENING CHAMBER",
-
-backgrounds:[
-
-"images/phase1.jpeg",
-"images/phase2.jpeg",
-"images/phase3.jpeg"
-
-],
-
-puzzles:[
-
-{
-
-question:`I speak without a mouth and hear without ears.
+                        question: `I speak without a mouth and hear without ears.
 I have no body, but I come alive with wind.`,
 
-options:[
-"Echo",
-"Smoke",
-"Shadow",
-"Water"
-],
+                        options: [
+                            "Echo",
+                            "Smoke",
+                            "Shadow",
+                            "Water"
+                        ],
 
-answer:"Echo",
+                        answer: "Echo",
 
-hint:"It repeats your voice.",
+                        hint: "It repeats your voice.",
 
-activity:"sound"
+                        activity: "sound"
 
-},
+                    },
 
-{
+                    {
 
-question:`2 → 6 ||
+                        question: `2 → 6 ||
 3 → 12  ||
 4 → 20  || 
 5 → ?`,
 
-options:[
-"25",
-"30",
-"35",
-"40"
-],
+                        options: [
+                            "25",
+                            "30",
+                            "35",
+                            "40"
+                        ],
 
-answer:"30",
+                        answer: "30",
 
-hint:"Multiply number with next number.",
+                        hint: "Multiply number with next number.",
 
-activity:"number"
+                        activity: "number"
 
-},
+                    },
 
-{
+                    {
 
-question:`Three wires appear:
+                        question: `Three wires appear:
 🔴 Red 
 🔵 Blue 
 🟢 Green 
 
 Choose correct wire.`,
 
-options:[
-"Red",
-"Blue",
-"Green",
-"Black"
-],
+                        options: [
+                            "Red",
+                            "Blue",
+                            "Green",
+                            "Black"
+                        ],
 
-answer:"Blue",
+                        answer: "Blue",
 
-hint:"Spreads all over the world.",
+                        hint: "Spreads all over the world.",
 
-activity:"wire"
+                        activity: "wire"
 
-}
+                    }
 
-]
+                ]
 
-},
+            },
 
-/* ================= ROOM 2 ================= */
+            /* ================= ROOM 2 ================= */
 
-{
+            {
 
-title:"ROOM 2 — THE LIBRARY OF SHADOWS",
+                title: "ROOM 2 — THE LIBRARY OF SHADOWS",
 
-backgrounds:[
+                backgrounds: [
 
-"images/phase4.jpeg",
-"images/phase5.jpeg",
-"images/phase6.jpeg"
+                    "images/phase4.jpeg",
+                    "images/phase5.jpeg",
+                    "images/phase6.jpeg"
 
-],
+                ],
 
-puzzles:[
+                puzzles: [
 
-{
+                    {
 
-question:`B, D, G, K, ?`,
+                        question: `B, D, G, K, ?`,
 
-options:[
-"M",
-"N",
-"P",
-"Q"
-],
+                        options: [
+                            "M",
+                            "N",
+                            "P",
+                            "Q"
+                        ],
 
-answer:"P",
+                        answer: "P",
 
-hint:"Letters skip in increasing pattern.",
+                        hint: "Letters skip in increasing pattern.",
 
-activity:"letters"
+                        activity: "letters"
 
-},
+                    },
 
-{
+                    {
 
-question:`Two statues stand guard.
+                        question: `Two statues stand guard.
 One always lies.
 One always tells truth.
 
 You may ask ONE question to know the correct door.`,
 
-options:[
+                        options: [
 
-"Ask both statues",
+                            "Ask both statues",
 
-"Choose random door",
+                            "Choose random door",
 
-"Ask which door the other statue says is correct",
+                            "Ask which door the other statue says is correct",
 
-"Break the door"
+                            "Break the door"
 
-],
+                        ],
 
-answer:"Ask which door the other statue says is correct",
+                        answer: "Ask which door the other statue says is correct",
 
-hint:"Use one liar against the other.",
+                        hint: "Use one liar against the other.",
 
-activity:"door"
+                        activity: "door"
 
-},
+                    },
 
-{
+                    {
 
-question:`Unscramble:
+                        question: `Unscramble:
 RCAEES`,
 
-options:[
-"ESCAPE",
-"SEARCH",
-"SCREEN",
-"SCARE"
-],
+                        options: [
+                            "ESCAPE",
+                            "SEARCH",
+                            "SCREEN",
+                            "SCARE"
+                        ],
 
-answer:"ESCAPE",
+                        answer: "ESCAPE",
 
-hint:"You are trying to do this in the game.",
+                        hint: "You are trying to do this in the game.",
 
-activity:"word"
+                        activity: "word"
 
-}
+                    }
 
-]
+                ]
 
-},
+            },
 
-/* ================= ROOM 3 ================= */
+            /* ================= ROOM 3 ================= */
 
-{
+            {
 
-title:"ROOM 3 — THE FROZEN LABORATORY",
+                title: "ROOM 3 — THE FROZEN LABORATORY",
 
-backgrounds:[
+                backgrounds: [
 
-"images/phase7.jpeg",
-"images/phase8.jpeg",
-"images/phase9.jpeg"
+                    "images/phase7.jpeg",
+                    "images/phase8.jpeg",
+                    "images/phase9.jpeg"
 
-],
+                ],
 
-puzzles:[
+                puzzles: [
 
-{
+                    {
 
-question:`If yesterday tomorrow was today,
+                        question: `If yesterday tomorrow was today,
 what day is tomorrow?`,
 
-options:[
-"Yesterday",
-"Today",
-"Monday",
-"Sunday"
-],
+                        options: [
+                            "Yesterday",
+                            "Today",
+                            "Monday",
+                            "Sunday"
+                        ],
 
-answer:"Today",
+                        answer: "Today",
 
-hint:"Think carefully about time shifting.",
+                        hint: "Think carefully about time shifting.",
 
-activity:"calendar"
+                        activity: "calendar"
 
-},
+                    },
 
-{
+                    {
 
-question:`Three bottles:
+                        question: `Three bottles:
 A = poison
 B = sleeping gas
 C = water
 
 Which bottle is safe?`,
 
-options:[
-"Bottle A",
-"Bottle B",
-"Bottle C",
-"None"
-],
+                        options: [
+                            "Bottle A",
+                            "Bottle B",
+                            "Bottle C",
+                            "None"
+                        ],
 
-answer:"Bottle C",
+                        answer: "Bottle C",
 
-hint:"Danger stands between poison and rest.",
+                        hint: "Danger stands between poison and rest.",
 
-activity:"bottle"
+                        activity: "bottle"
 
-},
+                    },
 
-{
+                    {
 
-question:`❄️ 1
+                        question: `❄️ 1
 ❄️❄️ 4
 ❄️❄️❄️ 9
 ❄️❄️❄️❄️ ?`,
 
-options:[
-"12",
-"14",
-"15",
-"16"
-],
+                        options: [
+                            "12",
+                            "14",
+                            "15",
+                            "16"
+                        ],
 
-answer:"16",
+                        answer: "16",
 
-hint:"Perfect squares.",
+                        hint: "Perfect squares.",
 
-activity:"ice"
+                        activity: "ice"
 
-}
+                    }
 
-]
+                ]
 
-},
+            },
 
-/* ================= ROOM 4 ================= */
+            /* ================= ROOM 4 ================= */
 
-{
+            {
 
-title:"ROOM 4 — THE HALL OF ILLUSIONS",
+                title: "ROOM 4 — THE HALL OF ILLUSIONS",
 
-backgrounds:[
+                backgrounds: [
 
-"images/phase10.jpeg",
-"images/phase11.jpeg",
-"images/phase12.jpeg"
+                    "images/phase10.jpeg",
+                    "images/phase11.jpeg",
+                    "images/phase12.jpeg"
 
-],
+                ],
 
-puzzles:[
+                puzzles: [
 
-{
+                    {
 
-question:`The more you take,
+                        question: `The more you take,
 the more you leave behind.`,
 
-options:[
-"Money",
-"Footsteps",
-"Air",
-"Shadow"
-],
+                        options: [
+                            "Money",
+                            "Footsteps",
+                            "Air",
+                            "Shadow"
+                        ],
 
-answer:"Footsteps",
+                        answer: "Footsteps",
 
-hint:"You leave it while walking.",
+                        hint: "You leave it while walking.",
 
-activity:"steps"
+                        activity: "steps"
 
-},
+                    },
 
-{
+                    {
 
-question:`3SIH7`,
+                        question: `3SIH7`,
 
-options:[
-"SHIFT",
-"THIS",
-"THIEF",
-"SIGHT"
-],
+                        options: [
+                            "SHIFT",
+                            "THIS",
+                            "THIEF",
+                            "SIGHT"
+                        ],
 
-answer:"THIS",
+                        answer: "THIS",
 
-hint:"Look at it like a mirror.",
+                        hint: "Look at it like a mirror.",
 
-activity:"mirror"
+                        activity: "mirror"
 
-},
+                    },
 
-{
+                    {
 
-question:`Three switches control one bulb in another room.
+                        question: `Three switches control one bulb in another room.
 You can enter the bulb room only once.`,
 
-options:[
+                        options: [
 
-"Turn all on",
+                            "Turn all on",
 
-"Use heat to identify bulb",
+                            "Use heat to identify bulb",
 
-"Break switch",
+                            "Break switch",
 
-"Random guess"
+                            "Random guess"
 
-],
+                        ],
 
-answer:"Use heat to identify bulb",
+                        answer: "Use heat to identify bulb",
 
-hint:"One bulb becomes warm.",
+                        hint: "One bulb becomes warm.",
 
-activity:"switch"
+                        activity: "switch"
 
-}
+                    }
 
-]
+                ]
 
-},
+            },
 
-/* ================= ROOM 5 ================= */
+            /* ================= ROOM 5 ================= */
 
-{
+            {
 
-title:"ROOM 5 — THE FINAL EXIT CHAMBER",
+                title: "ROOM 5 — THE FINAL EXIT CHAMBER",
 
-backgrounds:[
+                backgrounds: [
 
-"images/phase13.jpeg",
-"images/phase14.jpeg",
-"images/phase15.jpeg"
+                    "images/phase13.jpeg",
+                    "images/phase14.jpeg",
+                    "images/phase15.jpeg"
 
-],
+                ],
 
-puzzles:[
+                puzzles: [
 
-{
+                    {
 
-question:`I am always running but never walk.`,
+                        question: `I am always running but never walk.`,
 
-options:[
-"Human",
-"Robot",
-"Water",
-"Clock"
-],
+                        options: [
+                            "Human",
+                            "Robot",
+                            "Water",
+                            "Clock"
+                        ],
 
-answer:"Water",
+                        answer: "Water",
 
-hint:"Flows endlessly.",
+                        hint: "Flows endlessly.",
 
-activity:"water"
+                        activity: "water"
 
-},
+                    },
 
-{
+                    {
 
-question:`What date appears once in 4 years?`,
+                        question: `What date appears once in 4 years?`,
 
-options:[
-"Feb 28",
-"Feb 29",
-"April 31",
-"Jan 1"
-],
+                        options: [
+                            "Feb 28",
+                            "Feb 29",
+                            "April 31",
+                            "Jan 1"
+                        ],
 
-answer:"Feb 29",
+                        answer: "Feb 29",
 
-hint:"Leap year special date.",
+                        hint: "Leap year special date.",
 
-activity:"calendar2"
+                        activity: "calendar2"
 
-},
+                    },
 
-{
+                    {
 
-question:`To escape,
+                        question: `To escape,
 sacrifice one thing you can never physically hold.`,
 
-options:[
-"Money",
-"Time",
-"Air",
-"Light"
-],
+                        options: [
+                            "Money",
+                            "Time",
+                            "Air",
+                            "Light"
+                        ],
 
-answer:"Time",
+                        answer: "Time",
 
-hint:"You lose it every second.",
+                        hint: "You lose it every second.",
 
-activity:"clock"
+                        activity: "clock"
 
-}
+                    }
 
-]
+                ]
 
-}
+            }
 
-];
+        ];
 
-/* =========================================================
-   GAME ELEMENTS
-========================================================= */
+        /* =========================================================
+           GAME ELEMENTS
+        ========================================================= */
 
-const roomInfo =
-document.getElementById("roomInfo");
+        const roomInfo =
+            document.getElementById("roomInfo");
 
-const question =
-document.getElementById("question");
+        const question =
+            document.getElementById("question");
 
-const optionsDiv =
-document.getElementById("options");
+        const optionsDiv =
+            document.getElementById("options");
 
-const activity =
-document.getElementById("activity");
+        const activity =
+            document.getElementById("activity");
 
-const message =
-document.getElementById("message");
+        const message =
+            document.getElementById("message");
 
-const game =
-document.getElementById("game");
+        const game =
+            document.getElementById("game");
 
-/* =========================================================
-   GAME STATE
-========================================================= */
+        /* =========================================================
+           GAME STATE
+        ========================================================= */
 
-let currentRoom = 0;
-let currentPuzzle = 0;
-let questionSolved = false;
-let activitySolved = false;
+        let currentRoom = 0;
+        let currentPuzzle = 0;
+        let questionSolved = false;
+        let activitySolved = false;
 
-/* =========================================================
-   START GAME
-========================================================= */
+        /* =========================================================
+           START GAME
+        ========================================================= */
 
-function startGame(){
+        function startGame() {
 
-document
-.getElementById("infoScreen")
-.style.display = "none";
+            document
+                .getElementById("infoScreen")
+                .style.display = "none";
 
-health =
-selectedCharacter.health;
+            health =
+                selectedCharacter.health;
 
-maxHealth =
-selectedCharacter.health;
+            maxHealth =
+                selectedCharacter.health;
 
-updateHealth();
+            updateHealth();
 
-loadPuzzle();
-}
+            loadPuzzle();
+        }
 
-/* =========================================================
-   LOAD PUZZLE
-========================================================= */
+        /* =========================================================
+           LOAD PUZZLE
+        ========================================================= */
 
-function loadPuzzle(){
+        function loadPuzzle() {
+            questionSolved = false;
+            activitySolved = false;
 
-clearInterval(timerInterval);
+            clearInterval(timerInterval);
 
-timer =
-30 + selectedCharacter.time;
+            timer =
+                60 + selectedCharacter.time;
 
-startTimer();
+            startTimer();
 
-const room =
-rooms[currentRoom];
+            const room =
+                rooms[currentRoom];
 
-const puzzle =
-room.puzzles[currentPuzzle];
+            const puzzle =
+                room.puzzles[currentPuzzle];
 
-game.style.backgroundImage =
-`url('${room.backgrounds[currentPuzzle]}')`;
+            game.style.backgroundImage =
+                `url('${room.backgrounds[currentPuzzle]}')`;
 
-roomInfo.innerText =
-`${room.title} • LEVEL ${currentPuzzle+1}`;
+            roomInfo.innerText =
+                `${room.title} • LEVEL ${currentPuzzle + 1}`;
 
-question.innerHTML =
+            question.innerHTML =
 
-`
+                `
 ${playerName},<br><br>
 ${puzzle.question}
 `;
 
-optionsDiv.innerHTML = "";
-activity.innerHTML = "";
-message.innerText = "";
+            optionsDiv.innerHTML = "";
+            activity.innerHTML = "";
+            message.innerText = "";
 
-/* HINT BUTTON */
+            /* HINT BUTTON */
 
-if(selectedCharacter.clue){
+            if (selectedCharacter.clue) {
 
-document
-.getElementById("hintBtn")
-.style.display = "inline-block";
+                document
+                    .getElementById("hintBtn")
+                    .style.display = "inline-block";
 
-}
-else{
+            }
+            else {
 
-document
-.getElementById("hintBtn")
-.style.display = "none";
-}
+                document
+                    .getElementById("hintBtn")
+                    .style.display = "none";
+            }
 
-/* OPTIONS */
+            /* OPTIONS */
 
-puzzle.options.forEach(option=>{
+            puzzle.options.forEach(option => {
 
-const btn =
-document.createElement("button");
+                const btn =
+                    document.createElement("button");
 
-btn.classList.add("option");
+                btn.classList.add("option");
 
-btn.innerText = option;
+                btn.innerText = option;
 
-btn.onclick =
-()=>checkAnswer(option);
+                btn.onclick =
+                    () => checkAnswer(option);
 
-optionsDiv.appendChild(btn);
+                optionsDiv.appendChild(btn);
 
-});
+            });
 
-/* LOAD ACTIVITY */
+            /* LOAD ACTIVITY */
 
-loadActivities(puzzle);
-}
+            loadActivities(puzzle);
+        }
 
-/* =========================================================
-   SCIENTIST HINT
-========================================================= */
+        /* =========================================================
+           SCIENTIST HINT
+        ========================================================= */
 
-function showScientistHint(){
+        function showScientistHint() {
 
-const puzzle =
-rooms[currentRoom]
-.puzzles[currentPuzzle];
+            const puzzle =
+                rooms[currentRoom]
+                    .puzzles[currentPuzzle];
 
-document
-.getElementById("cluePopup")
-.style.display = "block";
+            document
+                .getElementById("cluePopup")
+                .style.display = "block";
 
-document
-.getElementById("clueText")
-.innerText =
-puzzle.hint;
-}
+            document
+                .getElementById("clueText")
+                .innerText =
+                puzzle.hint;
+        }
 
-function closeClue(){
+        function closeClue() {
 
-document
-.getElementById("cluePopup")
-.style.display = "none";
-}
+            document
+                .getElementById("cluePopup")
+                .style.display = "none";
+        }
 
-/* =========================================================
-   TIMER
-========================================================= */
+        /* =========================================================
+           TIMER
+        ========================================================= */
 
-function startTimer(){
+        function startTimer() {
 
-document
-.getElementById("timer")
-.innerText =
-`⏳ ${timer}`;
+            document
+                .getElementById("timer")
+                .innerText =
+                `⏳ ${timer}`;
 
-timerInterval = setInterval(()=>{
+            timerInterval = setInterval(() => {
 
-timer--;
+                timer--;
 
-document
-.getElementById("timer")
-.innerText =
-`⏳ ${timer}`;
+                document
+                    .getElementById("timer")
+                    .innerText =
+                    `⏳ ${timer}`;
 
-if(timer <= 0){
+                if (timer <= 0) {
 
-clearInterval(timerInterval);
+                    clearInterval(timerInterval);
 
-restartRoom();
-}
+                    restartRoom();
+                }
 
-},1000);
-}
+            }, 1000);
+        }
 
-/* =========================================================
-   RESTART ROOM
-========================================================= */
+        /* =========================================================
+           RESTART ROOM
+        ========================================================= */
 
-function restartRoom(){
+        function restartRoom() {
 
-alert("TIME OVER! ROOM RESTARTED");
+            alert("TIME OVER! ROOM RESTARTED");
 
-currentPuzzle = 0;
+            currentPuzzle = 0;
 
-loadPuzzle();
-}
+            loadPuzzle();
+        }
 
-/* =========================================================
-   UPDATE HEALTH
-========================================================= */
+        /* =========================================================
+           UPDATE HEALTH
+        ========================================================= */
 
-function updateHealth(){
+        function updateHealth() {
 
-let percent =
-(health/maxHealth)*100;
+            let percent =
+                (health / maxHealth) * 100;
 
-document
-.getElementById("healthBar")
-.style.width =
-percent + "%";
+            document
+                .getElementById("healthBar")
+                .style.width =
+                percent + "%";
 
-document
-.getElementById("healthText")
-.innerText =
-`${health}/${maxHealth}`;
+            document
+                .getElementById("healthText")
+                .innerText =
+                `${health}/${maxHealth}`;
 
-if(health <= 0){
+            if (health <= 0) {
 
-alert("YOU DIED");
+                alert("YOU DIED");
 
-location.reload();
-}
-}
+                location.reload();
+            }
+        }
 
-/* =========================================================
-   CHECK ANSWER
-========================================================= */
+        /* =========================================================
+           CHECK ANSWER
+        ========================================================= */
 
-function checkAnswer(selected){
+        function checkProgression() {
+            if (questionSolved && activitySolved) {
+                message.innerText = "ACCESS GRANTED";
+                setTimeout(() => {
+                    currentPuzzle++;
+                    if (currentPuzzle < rooms[currentRoom].puzzles.length) {
+                        loadPuzzle();
+                    } else {
+                        nextRoom();
+                    }
+                }, 1200);
+            }
+        }
 
-const correct =
-rooms[currentRoom]
-.puzzles[currentPuzzle]
-.answer;
+        function checkAnswer(selected) {
 
-if(selected === correct){
+            const correct =
+                rooms[currentRoom]
+                    .puzzles[currentPuzzle]
+                    .answer;
 
-message.innerText =
-"ACCESS GRANTED";
+            if (selected === correct) {
+                questionSolved = true;
+                if (!activitySolved) {
+                    message.innerText = "PUZZLE SOLVED. COMPLETE ACTIVITY.";
+                }
+                checkProgression();
+            }
 
-setTimeout(()=>{
+            else {
 
-currentPuzzle++;
+                health -= 20;
 
-if(currentPuzzle <
-rooms[currentRoom]
-.puzzles.length){
+                updateHealth();
 
-loadPuzzle();
+                message.innerText =
+                    "WRONG ANSWER";
+            }
+        }
 
-}
-else{
+        /* =========================================================
+           ACTIVITY RESULT
+        ========================================================= */
 
-nextRoom();
-}
+        function correctActivity() {
+            activitySolved = true;
+            if (!questionSolved) {
+                message.innerText = "ACTIVITY COMPLETED. SOLVE PUZZLE.";
+            }
+            checkProgression();
+        }
 
-},1200);
-}
+        function wrongActivity() {
 
-else{
+            health -= 20;
 
-health -= 20;
+            updateHealth();
 
-updateHealth();
+            message.innerText =
+                "WRONG ACTIVITY";
+        }
 
-message.innerText =
-"WRONG ANSWER";
-}
-}
+        /* =========================================================
+           NEXT ROOM
+        ========================================================= */
 
-/* =========================================================
-   ACTIVITY RESULT
-========================================================= */
+        function nextRoom() {
 
-function correctActivity(){
+            document
+                .getElementById("doorScreen")
+                .style.display = "flex";
 
-message.innerText =
-"ACTIVITY COMPLETED";
-}
+            setTimeout(() => {
 
-function wrongActivity(){
+                document
+                    .getElementById("doorScreen")
+                    .style.display = "none";
 
-health -= 20;
+                currentRoom++;
 
-updateHealth();
+                currentPuzzle = 0;
 
-message.innerText =
-"WRONG ACTIVITY";
-}
+                if (currentRoom < rooms.length) {
 
-/* =========================================================
-   NEXT ROOM
-========================================================= */
+                    loadPuzzle();
 
-function nextRoom(){
+                }
+                else {
 
-document
-.getElementById("doorScreen")
-.style.display = "flex";
+                    showVideoScene();
 
-setTimeout(()=>{
+                }
 
-document
-.getElementById("doorScreen")
-.style.display = "none";
+            }, 3000);
+        }
+        /* =========================================================
+           END GAME
+        /* SHOW FINAL VIDEO */
 
-currentRoom++;
+        /* SHOW FINAL VIDEO */
 
-currentPuzzle = 0;
+        function showVideoScene() {
 
-if(currentRoom < rooms.length){
+            const videoScene =
+                document.getElementById("videoScene");
 
-loadPuzzle();
+            const video =
+                document.getElementById("endingVideo");
 
-}
-else{
+            videoScene.style.display = "flex";
 
-showVideoScene();
+            video.currentTime = 0;
 
-}
+            /* FORCE PLAY */
 
-},3000);
-}
-/* =========================================================
-   END GAME
-/* SHOW FINAL VIDEO */
+            const playPromise = video.play();
 
-/* SHOW FINAL VIDEO */
+            if (playPromise !== undefined) {
 
-function showVideoScene(){
+                playPromise.then(() => {
 
-const videoScene =
-document.getElementById("videoScene");
+                    console.log("Video Playing");
 
-const video =
-document.getElementById("endingVideo");
+                })
+                    .catch(error => {
 
-videoScene.style.display = "flex";
+                        console.log("Autoplay blocked:", error);
 
-video.currentTime = 0;
+                        /* If blocked, show controls */
 
-/* FORCE PLAY */
+                        video.controls = true;
 
-const playPromise = video.play();
+                    });
 
-if(playPromise !== undefined){
+            }
 
-playPromise.then(()=>{
+            /* WHEN VIDEO ENDS */
 
-console.log("Video Playing");
+            video.onended = () => {
 
-})
-.catch(error=>{
+                videoScene.style.display = "none";
 
-console.log("Autoplay blocked:", error);
+                showEndingScene();
 
-/* If blocked, show controls */
+            };
 
-video.controls = true;
+        }
 
-});
+        function showEndingScene() {
 
-}
+            document
+                .getElementById("endingScene")
+                .style.display = "flex";
 
-/* WHEN VIDEO ENDS */
+            setTimeout(() => {
 
-video.onended = ()=>{
+                document
+                    .getElementById("endingScene")
+                    .style.display = "none";
 
-videoScene.style.display = "none";
+                endGame();
 
-showEndingScene();
+            }, 6000);
+        }
+        function endGame() {
 
-};
+            document
+                .getElementById("finalScreen")
+                .style.display = "flex";
+        }
 
-}
+        /* =========================================================
+           LOAD ACTIVITIES
+        ========================================================= */
 
-function showEndingScene(){
+        function loadActivities(puzzle) {
 
-document
-.getElementById("endingScene")
-.style.display = "flex";
+            /* SOUND */
 
-setTimeout(()=>{
+            if (puzzle.activity === "sound") {
 
-document
-.getElementById("endingScene")
-.style.display = "none";
-
-endGame();
-
-},6000);
-}
-function endGame(){
-
-document
-.getElementById("finalScreen")
-.style.display = "flex";
-}
-
-/* =========================================================
-   LOAD ACTIVITIES
-========================================================= */
-
-function loadActivities(puzzle){
-
-/* SOUND */
-
-if(puzzle.activity === "sound"){
-
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>🎤 SOUND MATCH</h3>
 
@@ -2207,13 +2210,13 @@ onclick="wrongActivity()">
 
 `;
 
-}
+            }
 
-/* NUMBER */
+            /* NUMBER */
 
-if(puzzle.activity === "number"){
+            if (puzzle.activity === "number") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>🔢 NUMBER PATTERN</h3>
 
@@ -2240,13 +2243,13 @@ onclick="wrongActivity()">
 
 `;
 
-}
+            }
 
-/* WIRE */
+            /* WIRE */
 
-if(puzzle.activity === "wire"){
+            if (puzzle.activity === "wire") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>⚡ WIRE CONNECTION</h3>
 
@@ -2260,12 +2263,12 @@ onclick="wrongActivity()">
 </button>
 
 <button class="activityBtn"
-onclick="wrongActivity()">
+onclick="correctActivity()">
 🔵 Blue
 </button>
 
 <button class="activityBtn"
-onclick="correctActivity()">
+onclick="wrongActivity()">
 🟢 Green
 </button>
 
@@ -2273,13 +2276,13 @@ onclick="correctActivity()">
 
 `;
 
-}
+            }
 
-/* LETTERS */
+            /* LETTERS */
 
-if(puzzle.activity === "letters"){
+            if (puzzle.activity === "letters") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>🔤 LETTER SEQUENCE</h3>
 
@@ -2306,13 +2309,13 @@ Q
 
 `;
 
-}
+            }
 
-/* DOOR */
+            /* DOOR */
 
-if(puzzle.activity === "door"){
+            if (puzzle.activity === "door") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>🚪 LOGIC DOOR</h3>
 
@@ -2339,13 +2342,13 @@ Guess
 
 `;
 
-}
+            }
 
-/* WORD */
+            /* WORD */
 
-if(puzzle.activity === "word"){
+            if (puzzle.activity === "word") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>🧩 WORD SCRAMBLE</h3>
 
@@ -2372,13 +2375,13 @@ SEARCH
 
 `;
 
-}
+            }
 
-/* CALENDAR */
+            /* CALENDAR */
 
-if(puzzle.activity === "calendar"){
+            if (puzzle.activity === "calendar") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>📅 TIME SHIFT</h3>
 
@@ -2405,13 +2408,13 @@ Yesterday
 
 `;
 
-}
+            }
 
-/* BOTTLE */
+            /* BOTTLE */
 
-if(puzzle.activity === "bottle"){
+            if (puzzle.activity === "bottle") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>🧪 SAFE BOTTLE</h3>
 
@@ -2438,13 +2441,13 @@ Bottle C
 
 `;
 
-}
+            }
 
-/* ICE */
+            /* ICE */
 
-if(puzzle.activity === "ice"){
+            if (puzzle.activity === "ice") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>❄️ ICE PATTERN</h3>
 
@@ -2471,13 +2474,13 @@ onclick="wrongActivity()">
 
 `;
 
-}
+            }
 
-/* STEPS */
+            /* STEPS */
 
-if(puzzle.activity === "steps"){
+            if (puzzle.activity === "steps") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>👣 WALK TRACK</h3>
 
@@ -2504,13 +2507,13 @@ Shadow
 
 `;
 
-}
+            }
 
-/* MIRROR */
+            /* MIRROR */
 
-if(puzzle.activity === "mirror"){
+            if (puzzle.activity === "mirror") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>🪞 MIRROR CODE</h3>
 
@@ -2537,13 +2540,13 @@ THIEF
 
 `;
 
-}
+            }
 
-/* SWITCH */
+            /* SWITCH */
 
-if(puzzle.activity === "switch"){
+            if (puzzle.activity === "switch") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>💡 BULB TEST</h3>
 
@@ -2570,13 +2573,13 @@ Break Switch
 
 `;
 
-}
+            }
 
-/* WATER */
+            /* WATER */
 
-if(puzzle.activity === "water"){
+            if (puzzle.activity === "water") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>🌊 FLOW TEST</h3>
 
@@ -2603,13 +2606,13 @@ Wall
 
 `;
 
-}
+            }
 
-/* CALENDAR 2 */
+            /* CALENDAR 2 */
 
-if(puzzle.activity === "calendar2"){
+            if (puzzle.activity === "calendar2") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>📆 LEAP YEAR</h3>
 
@@ -2636,13 +2639,13 @@ Jan 1
 
 `;
 
-}
+            }
 
-/* CLOCK */
+            /* CLOCK */
 
-if(puzzle.activity === "clock"){
+            if (puzzle.activity === "clock") {
 
-activity.innerHTML = `
+                activity.innerHTML = `
 
 <h3>⏳ FINAL CHOICE</h3>
 
@@ -2669,11 +2672,12 @@ Light
 
 `;
 
-}
+            }
 
-}
+        }
 
-</script>
+    </script>
 
 </body>
+
 </html>
