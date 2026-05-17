@@ -65,6 +65,8 @@
         .box {
             width: 900px;
             max-width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
             background: rgba(0, 0, 0, 0.9);
             border: 2px solid cyan;
             border-radius: 30px;
@@ -1049,26 +1051,66 @@ line-height:2;
                     </h2>
 
                     <ul>
-
                         <li>Every room contains 3 puzzles.</li>
                         <li>Every puzzle has a related activity.</li>
                         <li>Wrong answers decrease health by 20.</li>
-                        <li>If timer reaches zero, room restarts.</li>
-                        <li>Scientist can use hint popup.</li>
-                        <li>Complete all levels to escape.</li>
-
+                        <li>If the timer reaches zero, the room restarts.</li>
+                        <li>If health reaches zero, the game restarts.</li>
+                        <li>The Scientist can use hint popups.</li>
+                        <li>Complete 3 puzzles to unlock the next room.</li>
+                        <li>Complete all rooms to escape the facility.</li>
                     </ul>
 
                 </div>
 
                 <br><br>
 
-                <button onclick="startGame()">
-                    START GAME
+                <button onclick="showAboutScreen()">
+                    NEXT
                 </button>
 
             </div>
 
+        </div>
+
+        <!-- ABOUT SCREEN -->
+
+        <div class="screen" id="aboutScreen" style="display:none;">
+
+            <div class="box">
+
+                <h1 style="font-size: 50px;">ABOUT THE GAME</h1>
+
+                <div style="
+text-align:left;
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:20px;
+line-height:1.8;
+margin-bottom: 20px;
+">
+                    <p style="font-size: 18px;">
+                        You awaken with no memory in a highly secured, abandoned underground facility. To survive and
+                        escape, you must navigate through <strong>5 distinct rooms</strong>. Each room contains
+                        <strong>3 challenging puzzles</strong> and <strong>3 corresponding activities</strong>. Prove
+                        your intelligence, solve the mysteries, and find your way out before time runs out.
+                    </p>
+                </div>
+
+                <br><br>
+
+                <button onclick="enterFacility()">
+                    ENTER FACILITY
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- TRANSITION SCREEN -->
+        <div class="screen" id="transitionScreen"
+            style="display:none; flex-direction:column; justify-content:center; align-items:center; background:black; z-index:900;">
+            <h1 id="transitionText" style="color:cyan; font-size:40px;">ENTERING TO THE GAME...</h1>
         </div>
 
         <!-- ROOM INFO -->
@@ -1807,11 +1849,35 @@ sacrifice one thing you can never physically hold.`,
            START GAME
         ========================================================= */
 
-        function startGame() {
+        /* =========================================================
+           SHOW ABOUT SCREEN & TRANSITION
+        ========================================================= */
 
-            document
-                .getElementById("infoScreen")
-                .style.display = "none";
+        function showAboutScreen() {
+            document.getElementById("infoScreen").style.display = "none";
+            document.getElementById("aboutScreen").style.display = "flex";
+        }
+
+        function enterFacility() {
+            document.getElementById("aboutScreen").style.display = "none";
+            const transitionScreen = document.getElementById("transitionScreen");
+            transitionScreen.style.display = "flex";
+
+            let dots = 0;
+            const textElement = document.getElementById("transitionText");
+            const dotInterval = setInterval(() => {
+                dots = (dots + 1) % 4;
+                textElement.innerText = "ENTERING TO THE GAME" + ".".repeat(dots);
+            }, 500);
+
+            setTimeout(() => {
+                clearInterval(dotInterval);
+                transitionScreen.style.display = "none";
+                startGame();
+            }, 3000); // 3 seconds transition
+        }
+
+        function startGame() {
 
             health =
                 selectedCharacter.health;
