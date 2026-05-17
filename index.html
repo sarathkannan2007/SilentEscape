@@ -20,6 +20,9 @@ body{
     overflow:hidden;
     font-family:'Orbitron',sans-serif;
     background:black;
+    width:100%;
+    height:100%;
+    touch-action:manipulation;
 }
 
 /* GAME */
@@ -133,14 +136,23 @@ input{
 /* BUTTON */
 
 button{
-    padding:14px 30px;
+
+    padding:12px 20px;
+
     border:none;
+
     border-radius:12px;
+
     background:cyan;
+
     color:black;
-    font-size:18px;
+
+    font-size:clamp(14px,2vw,18px);
+
     font-weight:bold;
+
     cursor:pointer;
+
     transition:0.3s;
 }
 
@@ -210,34 +222,30 @@ button:hover{
     position:absolute;
 
     left:50%;
-    bottom:12px;
+    bottom:10px;
 
     transform:translateX(-50%);
 
-    width:92%;
+    width:95%;
     max-width:1200px;
 
-    background:rgba(0,0,0,0.50);
+    background:rgba(0,0,0,0.40);
 
-    border-radius:20px;
+    border-radius:18px;
 
-    padding:14px 18px;
+    padding:14px;
 
     color:white;
 
     z-index:40;
 
-    backdrop-filter:blur(1.5px);
+    backdrop-filter:blur(2px);
 
     display:flex;
 
-    flex-direction:row;
+    gap:15px;
 
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:18px;
+    align-items:stretch;
 }
 
 /* QUESTION SECTION */
@@ -248,18 +256,16 @@ button:hover{
 }
 
 /* QUESTION */
-
 #question{
 
-    font-size:20px;
+    font-size:clamp(15px,2vw,22px);
 
-    line-height:1.4;
+    line-height:1.5;
 
     margin-bottom:10px;
 
     text-align:left;
 }
-
 /* OPTIONS */
 
 #options{
@@ -277,7 +283,7 @@ button:hover{
 
     width:100%;
 
-    padding:10px;
+    padding:12px;
 
     border:none;
 
@@ -287,7 +293,7 @@ button:hover{
 
     color:white;
 
-    font-size:15px;
+    font-size:clamp(13px,2vw,16px);
 
     cursor:pointer;
 
@@ -328,21 +334,25 @@ button:hover{
 
 /* ACTIVITY BUTTONS */
 
-.activityButtons{
+.activityBtn{
 
-    display:flex;
+    padding:10px 12px;
 
-    flex-direction:row;
+    border:none;
 
-    justify-content:center;
+    border-radius:10px;
 
-    align-items:center;
+    background:#333;
 
-    flex-wrap:wrap;
+    color:white;
 
-    gap:10px;
+    cursor:pointer;
 
-    margin-top:10px;
+    transition:0.3s;
+
+    font-size:clamp(12px,2vw,15px);
+
+    min-width:80px;
 }
 
 /* ACTIVITY BUTTON */
@@ -743,6 +753,189 @@ button:hover{
     #activity{
         width:100%;
     }
+    /* =========================================================
+   MOBILE RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    h1{
+        font-size:38px;
+    }
+
+    .box{
+        padding:20px;
+        width:95%;
+    }
+
+    .story{
+        font-size:15px;
+        line-height:1.6;
+    }
+
+    #roomInfo{
+        font-size:16px;
+        top:12px;
+        left:12px;
+    }
+
+    #timer{
+        top:12px;
+        right:12px;
+        font-size:15px;
+    }
+
+    #healthArea{
+        top:42px;
+        right:12px;
+    }
+
+    #healthContainer{
+        width:120px;
+        height:14px;
+    }
+
+    #healthText{
+        font-size:10px;
+    }
+
+    #questionArea{
+
+        flex-direction:column;
+
+        width:95%;
+
+        bottom:8px;
+
+        padding:10px;
+
+        gap:10px;
+    }
+
+    #questionSection{
+        width:100%;
+    }
+
+    #question{
+        font-size:15px;
+    }
+
+    #options{
+
+        grid-template-columns:1fr;
+
+        gap:8px;
+    }
+
+    .option{
+        padding:10px;
+        font-size:13px;
+    }
+
+    #activity{
+
+        width:100%;
+
+        min-height:auto;
+
+        padding:10px;
+    }
+
+    .activityButtons{
+
+        gap:8px;
+    }
+
+    .activityBtn{
+
+        flex:1;
+
+        min-width:70px;
+
+        font-size:12px;
+
+        padding:10px;
+    }
+
+    #message{
+        font-size:13px;
+    }
+
+    #hintBtn{
+        width:100%;
+        margin-top:8px;
+    }
+
+    #cluePopup{
+
+        width:92%;
+
+        padding:20px;
+    }
+
+    #door{
+        width:150px;
+        height:240px;
+    }
+
+    #key{
+        font-size:55px;
+    }
+
+    #endingContent h1{
+        font-size:34px;
+    }
+
+    #endingContent p{
+        font-size:16px;
+        line-height:1.6;
+    }
+
+    #finalScreen h1{
+        font-size:40px;
+    }
+
+    #finalScreen p{
+        font-size:16px;
+        line-height:1.7;
+    }
+
+    .character{
+        width:140px;
+        height:180px;
+    }
+
+    .character img{
+        width:70px;
+    }
+
+}
+
+/* SMALL MOBILE */
+
+@media(max-width:500px){
+
+    #questionArea{
+        bottom:5px;
+    }
+
+    #question{
+        font-size:13px;
+    }
+
+    .option{
+        font-size:12px;
+    }
+
+    .activityBtn{
+        font-size:11px;
+    }
+
+    h1{
+        font-size:30px;
+    }
+
+}
 }
 
 </style>
@@ -2468,6 +2661,12 @@ Light
 
 }
 
+}
+
+</script>
+
+</body>
+</html>
 }
 
 </script>
